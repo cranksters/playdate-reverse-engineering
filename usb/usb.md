@@ -2,7 +2,7 @@
 
 When connected to USB and unlocked, the Playdate provides a kind of command line interface via USB bulk transfers. Commands are sent as ascii text via bulk out and must end in a newline character (`\n`), and the response is received via bulk in. Some commands (such as `button` or `stream enable`) will cause the Playdate to continually send data via bulk in until another command is sent to cancel it, other commands (for example, `bitmap`) may require extra binary data to be sent after the command text.
 
-Some of these commands are used by Playdate Simulator for features like "preview bimap" or "run pdx".
+Some of these commands are used by Playdate Simulator for features like "preview bitmap" or "run pdx". If you want to play around with these, and you use a browser that supports WebUSB, you should check out my [playdate-usb](https://github.com/jaames/playdate-usb) library.
 
 ## USB commands
 
@@ -71,7 +71,7 @@ Each new state will be written as a single line with the following structure:
 buttons:XX XX XX crank:X.X docked:X
 ```
 
-`button` gives three hex-formated numbers contains the current button state. The first number indicates which buttons are currently pressed, the second indicates which buttons were pressed after the last update, and the third indicates which buttons were released after the last update. These should be treated as bitflags:
+`button` gives three hex-formatted numbers contains the current button state. The first number indicates which buttons are currently pressed, the second indicates which buttons were pressed after the last update, and the third indicates which buttons were released after the last update. These should be treated as bitflags:
 
 | Button | Bitmask |
 |:-------|:--------|
