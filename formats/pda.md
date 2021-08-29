@@ -5,8 +5,7 @@ A file with the `.pda` extension represents audio data that has been compiled by
 | Offset | Type     | Detail |
 |:-------|:---------|:-------|
 | `0`    | `chr[12]` | Ident "Playdate AUD" |
-| `12`   | `uint16`  | Sample rate |
-| `14`   | `uint8`  | Unknown/reserved, seen as 0 |
+| `12`   | `uint24`  | Sample rate |
 | `15`   | `uint8`  | Audio data format |
 
 ### Audio Data Format
@@ -19,8 +18,8 @@ The audio data format field in the file header seems to map to the `playdate.sou
 | `1`   | `kFormat8bitStereo` | unsigned 8-bit PCM, two channels |
 | `2`   | `kFormat16bitMono` | signed 16-bit little endian PCM, one channel |
 | `3`   | `kFormat16bitStereo` | signed 16-bit little endian PCM, two channels |
-| `4`   | `kFormat4bitMono` | 4-bit ADPCM, one channel |
-| `5`   | `kFormat4bitStereo` | 4-bit ADPCM, two channels |
+| `4`   | `kFormatADPCMMono` | 4-bit ADPCM, one channel |
+| `5`   | `kFormatADPCMStereo` | 4-bit ADPCM, two channels |
 
 ## Audio Data
 
