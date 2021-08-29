@@ -63,7 +63,7 @@ Most of these commands are self-explanatory, so I will just detail some of the i
 
 ### `buttons`
 
-Begins button-testing mode causes the device to begin continually writing the current control state to USB out, at approximately 50 times per second. This can be stopped by sending a newline to the device.
+Begins button-testing mode causes the device to begin continually writing the current control state to USB bulk in, at approximately 50 times per second. This can be stopped by sending a newline to the device.
 
 Each new state will be written as a single line with the following structure:
 
@@ -71,7 +71,7 @@ Each new state will be written as a single line with the following structure:
 buttons:XX XX XX crank:X.X docked:X
 ```
 
-`button` gives three hex-formatted numbers contains the current button state. The first number indicates which buttons are currently pressed, the second indicates which buttons were pressed after the last update, and the third indicates which buttons were released after the last update. These should be treated as bitflags:
+`button` gives three hex-formatted numbers containing the current button state. The first number indicates which buttons are currently pressed, the second indicates which buttons were pressed after the last update, and the third indicates which buttons were released after the last update. These should be treated as bitflags:
 
 | Button | Bitmask |
 |:-------|:--------|
@@ -94,7 +94,7 @@ Gets the current screen buffer as a 1-bit array of pixels. The data returned fro
 
 ### `bitmap`
 
-Sends a 1-bit bitmap to be previewed on the Playdate screen. The command must begin with a 7-byte string `bitmap\n`, followed by 12000 bytes of bitmap data where each bit of every byte represents one pixel; `0` for black, `1` for white. 
+Sends a 1-bit bitmap to be previewed on the Playdate screen. The command must begin with a 7-byte command string `bitmap\n`, followed by 12000 bytes of bitmap data where each bit of every byte represents one pixel; `0` for black, `1` for white. 
 
 ### `run`
 
@@ -191,7 +191,7 @@ AT+SYSFLASH?
 +SYSFLASH:"fatfs",1,129,0x70000,0x90000
 ```
 
-Some partitions don't seem to be readable, however you can for example dump the client CA cert by doing `AT+SYSFLASH=2,"client_ca",0,0x2000`.
+Most partitions don't seem to be readable, however you can for example dump the client CA cert by doing `AT+SYSFLASH=2,"client_ca",0,0x2000`.
 
 [**`AT_FS`**](https://docs.espressif.com/projects/esp-at/en/latest/AT_Command_Set/Basic_AT_Commands.html#esp32-only-at-fs-filesystem-operations):
 
