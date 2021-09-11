@@ -8,8 +8,8 @@ Playdate reverse-engineering notes - covers file formats, server API and USB com
     - [**.pda**](https://github.com/jaames/playdate-reverse-engineering/blob/main/formats/pda.md) - Audio file
     - [**.pdi**](https://github.com/jaames/playdate-reverse-engineering/blob/main/formats/pdi.md) - Image file
     - [**.pdt**](https://github.com/jaames/playdate-reverse-engineering/blob/main/formats/pdt.md) - Imagetable file
+    - [**.pdv**](https://github.com/jaames/playdate-reverse-engineering/blob/main/formats/pdv.md) - Video file
     - **.pft** - Font file
-    - **.pdv** - Video file
   - **Other formats**
     - **.fnt** - Font source file
 - **Server**
@@ -21,8 +21,8 @@ Playdate reverse-engineering notes - covers file formats, server API and USB com
 
  - [Matt Sephton](https://github.com/gingerbeardman) for helping me get access to the Playdate Developer Preview
  - [Simon](https://github.com/simontime) for helping with some ADPCM audio reverse engineering
- - [zhuowei](https://github.com/zhuowei) for this [script for unpacking Playdate .pdx executables](https://gist.github.com/zhuowei/666c7e6d21d842dbb8b723e96164d9c3), even though it's outdated/wrong :P
- - The folks at [Panic](https://panic.com/) for making such a wonderful and fascinating handheld
+ - [zhuowei](https://github.com/zhuowei) for this [script for unpacking Playdate .pdx executables](https://gist.github.com/zhuowei/666c7e6d21d842dbb8b723e96164d9c3), even though it's outdated
+ - The folks at [Panic](https://panic.com/) for making such a wonderful and fascinating handheld!
 
  ----
 
