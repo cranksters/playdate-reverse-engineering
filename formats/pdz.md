@@ -15,21 +15,32 @@ Each entry has the following:
 
 | Type    | Detail |
 |:--------|:-------|
-| `uint8`  | Bitflags |
+| `uint8`  | Entry flags |
 | `uint24` | Compressed data length + 4 |
 | `string` | Filename as null-terminated string |
 | `-` | Optional null-padding if needed to align to the next multiple of 4 bytes |
 | `uint32` | Decompressed data length |
 | `data` | Zlib-compressed file data |
 
-### Bitflags
-
-I haven't seen enough samples to know what these are for certain:
+### Entry Flags
 
 | Flag | Detail |
 |:-------|:-------|
 | `(flags >> 7) & 0x1` | Is file compressed |
-| `(flags >> 1) & 0x1` | Is file non-executable? |
+| `(flags >> 4) & 0xF` | File type[#file-type] |
+
+### File Type
+
+| Flag | Detail |
+|:-------|:-------|
+| `0` | Unknown |
+| `1` | Compiled Lua bytecode |
+| `2` | Static image |
+| `3` | Animated image |
+| `4` | Unknown |
+| `5` | Audio |
+| `6` | Text Strings |
+| `7` | Font |
 
 ## Lua bytecode
 
