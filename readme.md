@@ -19,8 +19,8 @@ Playdate reverse-engineering notes/tools - covers file formats, server API and U
 
 ## Tools
 
-- [**`pdz.py`**](https://github.com/jaames/playdate-reverse-engineering/blob/tools/pdz.py) - Unpacks all files from a `.pdz` file container
-- [**`pdex2elf.py`**](https://github.com/jaames/playdate-reverse-engineering/blob/tools/pdex2elf.py) - Converts a `pdex.bin` to an ELF file that can be analysed in a decompilation tool such as Ghidra
+- [**`pdz.py`**](https://github.com/jaames/playdate-reverse-engineering/blob/main/tools/pdz.py) - Unpacks all files from a `.pdz` file container
+- [**`pdex2elf.py`**](https://github.com/jaames/playdate-reverse-engineering/blob/main/tools/pdex2elf.py) - Converts a `pdex.bin` to an ELF file that can be analysed in a decompilation tool such as Ghidra
 
 ## Special Thanks
 

@@ -6,6 +6,13 @@ from os import path, makedirs
 from struct import unpack
 from zlib import decompress
 
+if (len(argv) < 3):
+  print('pdz.py')
+  print('Unpack a Playdate .pdz executable file archive')
+  print('Usage:')
+  print('python3 pdz.py input.pdz output_directory')
+  exit()
+
 file_types = {
   1: 'luac',
   2: 'pdi',

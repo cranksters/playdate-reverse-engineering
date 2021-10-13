@@ -4,7 +4,7 @@ from struct import pack
 if (len(argv) < 3):
   print('pdex2elf.py')
   print('convert a Playdate pdex.bin to an ELF file for analysis')
-  print()
+  print('Usage:')
   print('python3 pdex2elf.py input.pdex output.elf')
   exit()
 
@@ -20,7 +20,7 @@ with open(argv[1], 'rb') as pdex, open(argv[2], 'wb') as elf:
   elf.write(bytes([0, 0, 0, 0, 0, 0, 0, 0]))
   # e_type = ET_EXEC, e_machine = 0x28 (ARM)
   elf.write(pack('<HH', 2, 0x28))
-  #	e_version 1
+  # e_version 1
   elf.write(pack('<I', 1))
   # e_entry
   elf.write(pack('<I', 1610612768))
@@ -46,14 +46,14 @@ with open(argv[1], 'rb') as pdex, open(argv[2], 'wb') as elf:
   elf.write(pack('<II', 1610612736, 1610612736))
   # p_filesz
   elf.write(pack('<I', len(pdexData)))
-  #	p_memsz
+  # p_memsz
   elf.write(pack('<I', len(pdexData) + 72)) # TODO: not sure how this is actually calculated
   # p_flags
   elf.write(pack('<I', 7))
   # p_align
   elf.write(pack('<I', 65536))
 
-  # padding until @65536 is padding (why?)
+  # padding until @65536 (why?)
   elf.write(bytes(65536 - elf.tell()))
   # pdex data
   elf.write(pdexData)
