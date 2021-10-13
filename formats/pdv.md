@@ -10,7 +10,7 @@ A file with the `.pdv` extension represents a 1-bit video that has been converte
 | `20`   | `float32` | Framerate, measured in frames per second |
 | `24`   | `int16` | Frame width |
 | `26`   | `int16` | Frame height |
-| `28`   | `int32` | Unknown, seen as 1 |
+| `28`   | `int32` | Unknown, seen as 1. Might be a loop flag? |
 
 In 1bitvideo.app the frame width and height seem to be hardcoded to `400` and `240` respectively, at least at the time of writing.
 
