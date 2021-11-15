@@ -6,7 +6,7 @@ Some of these commands are used by Playdate Simulator for features like "preview
 
 ## USB commands
 
-Running  `help` will return a very helpful list of the available commands:
+Running `help` will return a very helpful list of available commands:
 
 ```
 The following commands are available:
@@ -61,44 +61,20 @@ ESP functions:
 
 Most of these commands are self-explanatory, so I will just detail some of the interesting/different ones. Please note these were run on an older Playdate Developer Preview unit, so there may be some differences with the final units that get shipped to the public.
 
-### `buttons`
+### `version`
 
-Begins button-testing mode causes the device to begin continually writing the current control state to USB bulk in, at approximately 50 times per second. This can be stopped by sending a newline to the device.
-
-Each new state will be written as a single line with the following structure:
+Example output:
 
 ```
-buttons:XX XX XX crank:X.X docked:X
+~version:
+target=DVT1
+build=3f1ccd8bb42e-1.3.1-release.119347-buildbot-20210818_165619
+boot_build=3f1ccd8bb42e-1.3.1-release.119347-buildbot
+SDK=1.3.1
+pdxversion=10200
+serial#=<REDACTED>
+cc=9.2.1 20191025 (release) [ARM/arm-9-branch revision 277599]
 ```
-
-`button` gives three hex-formatted numbers containing the current button state. The first number indicates which buttons are currently pressed, the second indicates which buttons were pressed after the last update, and the third indicates which buttons were released after the last update. These should be treated as bitflags:
-
-| Button | Bitmask |
-|:-------|:--------|
-| a      | `0x1`    |
-| b      | `0x2`    |
-| up     | `0x4`    |
-| down   | `0x8`    |
-| left   | `0x10`   |
-| right  | `0x20`   |
-| menu   | `0x40`   |
-| lock   | `0x80`   |
-
-`crank` gives the crank angle as a floating point number, measured in degrees, with `0` being the 12 o'clock position.
-
-`docked` will be `0` if the crank is not docked, or `1` if docked.
-
-### `screen`
-
-Gets the current screen buffer as a 1-bit array of pixels. The data returned from the Playdate will begin with an 11-byte string `\r\nscreen~:\n`, followed by 12000 bytes of bitmap data where each bit of every byte represents one pixel; `0` for black, `1` for white. 
-
-### `bitmap`
-
-Sends a 1-bit bitmap to be previewed on the Playdate screen. The command must begin with a 7-byte command string `bitmap\n`, followed by 12000 bytes of bitmap data where each bit of every byte represents one pixel; `0` for black, `1` for white. 
-
-### `run`
-
-Launches a .pdx rom from the Playdate's data partition. The game path must begin with a forward slash, e.g `run /System/Crayons.pdx`.
 
 ### `stats`
 
@@ -123,20 +99,54 @@ trace: 0.0%
 audio: 0.2%
 ```
 
-### `version`
+### `buttons`
 
-Example output:
+Begins button-testing mode causes the device to begin continually writing the current control state to USB bulk in, at approximately 50 times per second. This can be stopped by sending a newline to the device.
+
+Each new state will be written as a single line with the following structure:
 
 ```
-~version:
-target=DVT1
-build=3f1ccd8bb42e-1.3.1-release.119347-buildbot-20210818_165619
-boot_build=3f1ccd8bb42e-1.3.1-release.119347-buildbot
-SDK=1.3.1
-pdxversion=10200
-serial#=<REDACTED>
-cc=9.2.1 20191025 (release) [ARM/arm-9-branch revision 277599]
+buttons:XX XX XX crank:X.X docked:X
 ```
+
+`button` gives three hex-formatted numbers containing the current button state. The first number indicates which buttons are currently pressed, the second indicates which buttons were pressed after the last update, and the third indicates which buttons were released after the last update. These should be treated as bitflags:
+
+| Button | Bitmask |
+|:-------|:--------|
+| a      | `0x01`   |
+| b      | `0x02`   |
+| up     | `0x04`   |
+| down   | `0x08`   |
+| left   | `0x10`  |
+| right  | `0x20`  |
+| menu   | `0x40`  |
+| lock   | `0x80`  |
+
+`crank` gives the crank angle as a floating point number, measured in degrees, with `0` being the 12 o'clock position.
+
+`docked` will be `0` if the crank is not docked, or `1` if docked.
+
+### `screen`
+
+Gets the current screen buffer as a 1-bit array of pixels. The data returned from the Playdate will begin with an 11-byte string `\r\nscreen~:\n`, followed by 12000 bytes of bitmap data where each bit of every byte represents one pixel; `0` for black, `1` for white. 
+
+### `bitmap`
+
+Sends a 1-bit bitmap to be previewed on the Playdate screen. The command must begin with a 7-byte command string `bitmap\n`, followed by 12000 bytes of bitmap data where each bit of every byte represents one pixel; `0` for black, `1` for white. 
+
+### `run`
+
+Launches a .pdx rom from the Playdate's data partition. The game path must begin with a forward slash, e.g `run /System/Crayons.pdx`.
+
+### `eval`
+
+Returns anything that has been printed to the console on the device, or evaluates a compiled Lua function on the device. 
+
+Running eval by itself just returns whatever has been printed to the console (via `print()` in Lua, `playdate->system->logToConsole` in C, etc) since the last time the command was run (oh hey, a way to make your game communicate over USB!).
+
+To evaluate a Lua function, the command must begin with the string `eval %d\n` where `%d` is the length of the data to eval. This should then be followed by the data for a compiled Lua function. You can use the `usbeval.py` script in this repo's `tools` directory to play around with this.
+
+This command will not work if the currently loaded game is from the System directory on the device, presumably for security reasons?
 
 ### `esp`
 

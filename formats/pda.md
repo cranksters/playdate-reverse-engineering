@@ -23,6 +23,8 @@ The audio data format field in the file header seems to map to the `playdate.sou
 
 ## Audio Data
 
+The audio data is stored differently, depending on the format indicated in the header.
+
 ### 4-bit ADPCM
 
 In this format, the audio is encoded in blocks. The audio data begins with unsigned 16-bit integer which gives the block size, and the start of the first block begins immediately after.

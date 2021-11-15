@@ -9,7 +9,7 @@ A file with the `.pdz` extension represents an executable file that has been com
 
 ## File Entries
 
-Following the header is a list of file entries. These can represent either Lua bytecode, compiled C binaries(?), or extra data and standard library image assets such as the crank prompt.
+Following the header is a list of file entries. These can represent either Lua bytecode, or extra data and standard library image assets such as the crank prompt UI.
 
 Each entry has the following:
 
@@ -42,7 +42,7 @@ Each entry has the following:
 | `6` | Text Strings |
 | `7` | Font |
 
-## Lua bytecode
+## Lua Bytecode
 
 Playdate (at the time of writing) seems to use the prerelease version of Lua 5.4. This version uses a slightly nonstandard bytecode header structure, before it was reverted for the 5.4 release.
 
@@ -60,6 +60,6 @@ Playdate (at the time of writing) seems to use the prerelease version of Lua 5.4
 | `16`   | `lua int`  | Constant `LUA_INT` (`0x5678`) |
 | `20`   | `lua float`  | Constant `LUA_NUM` (`370.5`) |
 
-## Image assets
+## Other Assets
 
-TODO
+Any other embedded assets (such as images, strings, etc) seem to have the ident part of their header removed, but are otherwise the same as their corresponding format.

@@ -19,8 +19,9 @@ This list of endpoints was obtained by decompiling the Playdate Simulator app. S
 | `GET`  | `/games/:bundleId/boards/` |
 | `GET`  | `/games/:bundleId/boards/:unknown/` |
 | `POST` | `/games/:bundleId/boards/:unknown/` |
-| `GET`  | `/device/settings` |
-| `POST` | `/device/register/:serialNumber` |
+| `GET`  | `/device/settings/` |
+| `POST` | `/device/register/:serialNumber/` |
+| `GET`  | [`/firmware/`](#get-firmware) |
 
 ### POST /auth_echo
 
@@ -33,6 +34,10 @@ Returns the player profile for the user that owns the current access token.
 ### GET /player/:playerId
 
 Same as `/player`, but gets the player profile for another user, given their [Player ID](#player-id).
+
+### GET /firmware
+
+Returns information about the latest available firmware version, including a URL to download it. For whatever reason, the latest available firmware for the Simulator is `0.10.2`, so I might not have everything correct here.
 
 ## Auth Headers
 
