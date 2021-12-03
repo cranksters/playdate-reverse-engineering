@@ -22,11 +22,11 @@ This section is zlib-compressed, after decompression:
 | `0`    | `uint16` | Num cells |
 | `2`    | `uint16` | Num cells again? |
 
-###  Table
+### Table
 
-After this header, there is a table of uint32 offsets for each cell aside from the first one, as well as an offset to the end of the data.
+After this header, there is a table of int32 offsets for each cell aside from the first one, as well as an offset to the end of the data.
 
-Offsets are relative to the end of this table. The first cell always begins directly after this table
+Offsets are relative to the end of the table, and the first cell always begins directly after the table.
 
 ### Cell header
 

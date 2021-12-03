@@ -9,9 +9,11 @@ Playdate reverse-engineering notes/tools - covers file formats, server API and U
     - [**.pdi**](https://github.com/jaames/playdate-reverse-engineering/blob/main/formats/pdi.md) - Image file
     - [**.pdt**](https://github.com/jaames/playdate-reverse-engineering/blob/main/formats/pdt.md) - Imagetable file
     - [**.pdv**](https://github.com/jaames/playdate-reverse-engineering/blob/main/formats/pdv.md) - Video file
+    - [**.pds**](https://github.com/jaames/playdate-reverse-engineering/blob/main/formats/pds.md) - Strings file
     - **.pft** - Font file
   - **Other formats**
     - **.fnt** - Font source file
+    - **.strings** - Strings source file
 - **Server**
   - [**Playdate API**](https://github.com/jaames/playdate-reverse-engineering/blob/main/server/api.md) - Main Playdate server API
 - **Misc**

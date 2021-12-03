@@ -33,13 +33,13 @@ Each entry has the following:
 
 | Flag | Detail |
 |:-------|:-------|
-| `0` | Unknown |
+| `0` | Unknown/unused |
 | `1` | Compiled Lua bytecode |
 | `2` | Static image |
 | `3` | Animated image |
 | `4` | Unknown |
 | `5` | Audio |
-| `6` | Text Strings |
+| `6` | Text strings |
 | `7` | Font |
 
 ## Lua Bytecode
@@ -62,4 +62,4 @@ Playdate (at the time of writing) seems to use the prerelease version of Lua 5.4
 
 ## Other Assets
 
-Any other embedded assets (such as images, strings, etc) seem to have the ident part of their header removed, but are otherwise the same as their corresponding format.
+Any other embedded assets (such as images, strings, etc) seem to have the ident part of their header (e.g. images won't begin with `Playdate IMG`) removed, but are otherwise the same as their corresponding format.
