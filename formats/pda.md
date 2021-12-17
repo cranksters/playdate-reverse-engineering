@@ -10,7 +10,7 @@ A file with the `.pda` extension represents audio data that has been compiled by
 
 ### Audio Data Format
 
-The audio data format field in the file header seems to map to the `playdate.sound` enum in the official SDK:
+The audio data format field in the file header seems to map to the `playdate.sound` constants in the official SDK:
 
 | Value | SDK Constant | Detail |
 |:------|:-------------|:-------|
@@ -23,7 +23,7 @@ The audio data format field in the file header seems to map to the `playdate.sou
 
 ## Audio Data
 
-The audio data is stored differently, depending on the format indicated in the header.
+The format flag in the file header indicates how the audio is stored:
 
 ### 4-bit ADPCM
 

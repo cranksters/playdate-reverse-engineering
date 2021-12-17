@@ -1,6 +1,6 @@
 > ⚠️ I am not so experienced with USB, so I might be missing details or using incorrect terminology here. If you have any suggestions or corrections, please open an issue thread!
 
-When connected to USB and unlocked, the Playdate provides a kind of command line interface via USB bulk transfers. Commands are sent as ascii text via bulk out and must end in a newline character (`\n`), and the response is received via bulk in. Some commands (such as `button` or `stream enable`) will cause the Playdate to continually send data via bulk in until another command is sent to cancel it, other commands (for example, `bitmap`) may require extra binary data to be sent after the command text.
+When connected to USB and unlocked, the Playdate provides a kind of command line interface via USB bulk transfers. Commands are sent as ascii text via bulk out and must end in a newline character (`\n`), and the response is received via bulk in. Some commands (such as `button` or `stream enable`) will cause the Playdate to continually send data via bulk in until another command is sent to cancel it, other commands (for example, `bitmap`) may require extra binary data to be sent after the newline character.
 
 Some of these commands are used by Playdate Simulator for features like "preview bitmap" or "run pdx". If you want to play around with these, and you use a browser that supports WebUSB, you should check out my [playdate-usb](https://github.com/jaames/playdate-usb) library.
 
@@ -10,8 +10,10 @@ Running `help` will return a very helpful list of available commands:
 
 ```
 The following commands are available:
+
 Telnet commands:
  help        Displays all available commands or individual help on each command
+
 CPU Control:
  serialread  Print the device serial number
  trace       trace_<delay>. (trace 10)
@@ -26,8 +28,10 @@ CPU Control:
  temp        get estimated ambient temperature
  dcache      dcache <on/off>: turn dcache on or off
  icache      icache <on/off>: turn icache on or off
+
 Firmware Update:
  fwup        fwup [bundle_path]
+
 Runtime control:
  echo        echo (on|off): turn console echo on or off
  buttons     Test buttons & crank
@@ -47,8 +51,11 @@ Runtime control:
  autolock    autolock <always|onBattery|never>
  version     Display build target and SDK version
  memstats    memstats
+ hibernate   hibernate
+
 Stream:
  stream      stream <enable|disable|poke>
+
 ESP functions:
  espreset    reset the ESP chip
  espoff      turn off the ESP
@@ -57,6 +64,12 @@ ESP functions:
  espflash    espflash <baud> [0|1] send the files listed with the espfile command to the ESP flash.
  espbaud     espbaud <speed> [cts]
  esp         esp <cmd>: Forward a command to the ESP firmware, read until keypress
+```
+
+Secret commands:
+
+```
+formatboot
 ```
 
 Most of these commands are self-explanatory, so I will just detail some of the interesting/different ones. Please note these were run on an older Playdate Developer Preview unit, so there may be some differences with the final units that get shipped to the public.
@@ -68,10 +81,10 @@ Example output:
 ```
 ~version:
 target=DVT1
-build=3f1ccd8bb42e-1.3.1-release.119347-buildbot-20210818_165619
-boot_build=3f1ccd8bb42e-1.3.1-release.119347-buildbot
-SDK=1.3.1
-pdxversion=10200
+build=c4abdb37253e-1.7.0-release.127473-buildbot-20211215_200649
+boot_build=c4abdb37253e-1.7.0-release.127473-buildbot
+SDK=1.7.0
+pdxversion=10500
 serial#=<REDACTED>
 cc=9.2.1 20191025 (release) [ARM/arm-9-branch revision 277599]
 ```
@@ -163,7 +176,7 @@ Version information:
 ```
 AT version:2.0.0.0-dev(b6850a4 - Oct 24 2019 12:10:13)
 SDK version:v3.3-beta3-170-g91f29bef17
-compile time(e9c8abb):Aug 18 2021 16:58:09
+compile time(e9c8abb):Dec 15 2021 20:08:07
 ```
 
 [**`AT+CMD?`**](https://docs.espressif.com/projects/esp-at/en/latest/AT_Command_Set/Basic_AT_Commands.html#at-cmd-list-all-at-commands-and-types-supported-in-current-firmware):
@@ -206,3 +219,37 @@ Most partitions don't seem to be readable, however you can for example dump the 
 [**`AT_FS`**](https://docs.espressif.com/projects/esp-at/en/latest/AT_Command_Set/Basic_AT_Commands.html#esp32-only-at-fs-filesystem-operations):
 
 No file system commands seem to be supported.
+
+## Changes
+
+### 1.7.0
+
+- Added the `hibernate` command.
+- `version` output:
+  ```
+  ~version:
+  target=DVT1
+  build=c4abdb37253e-1.7.0-release.127473-buildbot-20211215_200649
+  boot_build=c4abdb37253e-1.7.0-release.127473-buildbot
+  SDK=1.7.0
+  pdxversion=10500
+  serial#=<REDACTED>
+  cc=9.2.1 20191025 (release) [ARM/arm-9-branch revision 277599]
+  ```
+
+### 1.4.0
+
+- `version` output:
+  ```
+  ~version:
+  target=DVT1
+  build=3f1ccd8bb42e-1.3.1-release.119347-buildbot-20210818_165619
+  boot_build=3f1ccd8bb42e-1.3.1-release.119347-buildbot
+  SDK=1.3.1
+  pdxversion=10200
+  serial#=<REDACTED>
+  cc=9.2.1 20191025 (release) [ARM/arm-9-branch revision 277599]
+  ```
+
+Initial version tested
+

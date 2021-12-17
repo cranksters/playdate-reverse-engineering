@@ -20,7 +20,8 @@ This list of endpoints was obtained by decompiling the Playdate Simulator app. S
 | `GET`  | `/games/:bundleId/boards/:unknown/` |
 | `POST` | `/games/:bundleId/boards/:unknown/` |
 | `GET`  | `/device/settings/` |
-| `POST` | `/device/register/:serialNumber/` |
+| `POST` | [`/device/register/:serialNumber/`]((#get-deviceregisterserialnumber)) |
+| `GET`  | [`/device/register/:serialNumber/complete`](#get-deviceregisterserialnumbercomplete) |
 | `GET`  | [`/firmware/`](#get-firmware) |
 
 ### POST /auth_echo
@@ -34,6 +35,20 @@ Returns the player profile for the user that owns the current access token.
 ### GET /player/:playerId
 
 Same as `/player`, but gets the player profile for another user, given their [Player ID](#player-id).
+
+### GET /device/register/:serialNumber/
+
+If the device hasn't already been registered, returns a JSON containing its serial number and pin.
+
+This endpoint requires an extra header:
+
+| Header | Value |
+|:-|:-|
+| `Idempotency-Key` | Random 16-character string. Allowed chars are `0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz`. |
+
+### GET /device/register/:serialNumber/complete
+
+Returns a JSON with the device's registered status, access token, and serial number.
 
 ### GET /firmware
 

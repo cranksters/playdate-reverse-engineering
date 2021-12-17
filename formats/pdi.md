@@ -2,23 +2,36 @@ A file with the `.pdi` extension represents a 1-bit bitmap image that has been c
 
 ## Header
 
+| Offset | Type      | Detail               |
+|:-------|:----------|:---------------------|
+| `0`    | `chr[12]` | Ident `Playdate IMG` |
+| `12`   | `int32`   | File bitflags        |
+
+### File Flags
+
+| Bitmask             | Detail                                      |
+|:--------------------|:--------------------------------------------|
+| `(flag >> 7) & 0x1` | If `1`, the data in this file is compressed |
+
+## Image Header
+
+If the compression flag is set, there's an extra image header after the file header:
+
 | Offset | Type     | Detail |
-|:-------|:---------|:-------|
-| `0`    | `chr[12]` | Ident "Playdate IMG" |
-| `12`   | `int32` | Unknown, seen as `0x00000080`, maybe bitflags or format ver? | |
-| `16`   | `int32`  | Size of decompressed image data |
-| `20`   | `int32`  | Image width |
-| `24`   | `int32`  | Image height |
-| `28`   | `int32`  | Unknown/reserved? Seen as 0 |
+|:-------|:---------|:--------------------------------|
+| `0`    | `int32`  | Size of image data section when decompressed |
+| `4`    | `int32`  | Image width |
+| `8`    | `int32`  | Image height |
+| `12`   | `int32`  | Unknown/reserved? Seen as 0 |
 
 ## Image Data
 
-This section is zlib-compressed, after decompression:
+If the compression flag is set, then this section is zlib-compressed.
 
 ### Cell header
 
-| Offset | Type    | Detail |
-|:-------|:--------|:-------|
+| Offset | Type     | Detail |
+|:-------|:---------|:-------|
 | `0`    | `uint16` | Cell width |
 | `2`    | `uint16` | Cell height |
 | `4`    | `uint16` | Cell stride (bytes per image row) |
@@ -26,12 +39,12 @@ This section is zlib-compressed, after decompression:
 | `8`    | `uint16` | Cell clip right |
 | `10`   | `uint16` | Cell clip top |
 | `12`   | `uint16` | Cell clip bottom |
-| `14`   | `uint16` | Bitflags |
+| `14`   | `uint16` | Cell bitflags |
 
 ### Cell Bitflags
 
-| Mask | Detail |
-|:-------|:-------|
+| Bitmask             | Detail                     |
+|:--------------------|:---------------------------|
 | `(flags & 0x3) > 0` | Cell contains an alpha map |
 
 ### Cell Bitmap

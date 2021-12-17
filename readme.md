@@ -10,7 +10,8 @@ Playdate reverse-engineering notes/tools - covers file formats, server API and U
     - [**.pdt**](https://github.com/jaames/playdate-reverse-engineering/blob/main/formats/pdt.md) - Imagetable file
     - [**.pdv**](https://github.com/jaames/playdate-reverse-engineering/blob/main/formats/pdv.md) - Video file
     - [**.pds**](https://github.com/jaames/playdate-reverse-engineering/blob/main/formats/pds.md) - Strings file
-    - **.pft** - Font file
+    - **.pft** - Font file (TODO)
+    - [Firmware Files](https://github.com/jaames/playdate-reverse-engineering/blob/main/formats/firmware.md)
   - **Other formats**
     - **.fnt** - Font source file
     - **.strings** - Strings source file
@@ -27,7 +28,6 @@ Playdate reverse-engineering notes/tools - covers file formats, server API and U
 
 ## Special Thanks
 
- - [Matt](https://github.com/gingerbeardman) for helping me get access to the Playdate Developer Preview
  - [Simon](https://github.com/simontime) for helping with some ADPCM audio reverse engineering
  - [Zhuowei](https://github.com/zhuowei) for this [script for unpacking Playdate .pdx executables](https://gist.github.com/zhuowei/666c7e6d21d842dbb8b723e96164d9c3), which was the base for `pdz.py`
  - The folks at [Panic](https://panic.com/) for making such a wonderful and fascinating handheld!

@@ -4,16 +4,29 @@ A file with the `.pdt` extension represents a 1-bit bitmap image table containin
 
 | Offset | Type     | Detail |
 |:-------|:---------|:-------|
-| `0`    | `chr[12]` | "Playdate IMT" |
-| `12`   | `int32` | Unknown, seen as `0x00000080`, maybe bitflags or format ver? | |
-| `16`   | `int32`  | Size of decompressed image data |
-| `20`   | `int32`  | Image width |
-| `24`   | `int32`  | Image height |
-| `28`   | `int32`  | Number of cells |
+| `0`    | `chr[12]` | Ident `Playdate IMT` |
+| `12`   | `int32`   | File bitflags  |
+
+### File Flags
+
+| Bitmask             | Detail                                      |
+|:--------------------|:--------------------------------------------|
+| `(flag >> 7) & 0x1` | If `1`, the data in this file is compressed |
+
+## Image Header
+
+If the compression flag is set, there's an extra image header after the file header:
+
+| Offset | Type     | Detail |
+|:-------|:---------|:--------------------------------|
+| `0`    | `int32`  | Size of decompressed image data |
+| `4`    | `int32`  | Image width |
+| `8`    | `int32`  | Image height |
+| `12`   | `int32`  | Number of cells |
 
 ## Image Data
 
-This section is zlib-compressed, after decompression:
+If the compression flag is set, then this section is zlib-compressed.
 
 ### Table header
 

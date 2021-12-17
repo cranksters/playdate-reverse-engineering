@@ -5,13 +5,19 @@ A file with the `.pdz` extension represents an executable file that has been com
 | Offset | Type     | Detail |
 |:-------|:---------|:-------|
 | `0`    | `chr[12]` | "Playdate PDZ" |
-| `12`   | `int32` | Unknown, seen as `0x00000000`, maybe just reserved? | |
+| `12`   | `int32`   | File bitflags   |
+
+### File Flags
+
+| Bitmask             | Detail                                      |
+|:--------------------|:--------------------------------------------|
+| `(flag >> 7) & 0x1` | If `1`, the data in this file is compressed |
 
 ## File Entries
 
 Following the header is a list of file entries. These can represent either Lua bytecode, or extra data and standard library image assets such as the crank prompt UI.
 
-Each entry has the following:
+If the file compression flag is set, each entry consists of:
 
 | Type    | Detail |
 |:--------|:-------|
@@ -20,7 +26,17 @@ Each entry has the following:
 | `string` | Filename as null-terminated string |
 | `-` | Optional null-padding if needed to align to the next multiple of 4 bytes |
 | `uint32` | Decompressed data length |
-| `data` | Zlib-compressed file data |
+| data | Zlib-compressed entry data |
+
+Otherwise if the compression flag is not set:
+
+| Type    | Detail |
+|:--------|:-------|
+| `uint8`  | Entry flags |
+| `uint24` | Data length + 4 |
+| `string` | Filename as null-terminated string |
+| `-` | Optional null-padding if needed to align to the next multiple of 4 bytes |
+| data | Entry data |
 
 ### Entry Flags
 
@@ -44,7 +60,7 @@ Each entry has the following:
 
 ## Lua Bytecode
 
-Playdate (at the time of writing) seems to use the prerelease version of Lua 5.4. This version uses a slightly nonstandard bytecode header structure, before it was reverted for the 5.4 release.
+Playdate (at the time of writing) seems to use the prerelease/beta version of Lua 5.4. This version uses a slightly nonstandard bytecode header structure, before it was reverted for the 5.4 release.
 
 ### Header
 
