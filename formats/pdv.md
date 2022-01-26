@@ -16,7 +16,7 @@ In 1bitvideo.app the frame width and height seem to be hardcoded to `400` and `2
 
 ## Frame Table
 
-Following the header is a series of `int32` values, one for each frame. These values contain the frame data offset as well as the frame type:
+Following the header is a series of `uint32` values, one for each frame. These values contain the frame data offset as well as the frame type:
 
 | Value | Detail |
 |:------|:-------|

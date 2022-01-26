@@ -48,7 +48,7 @@ This endpoint requires an extra header:
 
 ### GET /device/register/:serialNumber/complete
 
-Returns a JSON with the device's registered status, access token, and serial number.
+Returns a JSON with the device's registered status, access token, and serial number. Access token will only be available on the first request to this endpoint after registering the device.
 
 ### GET /firmware
 

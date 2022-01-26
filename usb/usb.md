@@ -239,17 +239,5 @@ No file system commands seem to be supported.
 
 ### 1.4.0
 
-- `version` output:
-  ```
-  ~version:
-  target=DVT1
-  build=3f1ccd8bb42e-1.3.1-release.119347-buildbot-20210818_165619
-  boot_build=3f1ccd8bb42e-1.3.1-release.119347-buildbot
-  SDK=1.3.1
-  pdxversion=10200
-  serial#=<REDACTED>
-  cc=9.2.1 20191025 (release) [ARM/arm-9-branch revision 277599]
-  ```
-
 Initial version tested
 

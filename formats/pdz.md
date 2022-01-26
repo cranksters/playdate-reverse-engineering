@@ -4,14 +4,7 @@ A file with the `.pdz` extension represents an executable file that has been com
 
 | Offset | Type     | Detail |
 |:-------|:---------|:-------|
-| `0`    | `chr[12]` | "Playdate PDZ" |
-| `12`   | `int32`   | File bitflags   |
-
-### File Flags
-
-| Bitmask             | Detail                                      |
-|:--------------------|:--------------------------------------------|
-| `(flag >> 7) & 0x1` | If `1`, the data in this file is compressed |
+| `0`    | `chr[16]` | "Playdate PDZ", with null padding at the end |
 
 ## File Entries
 
@@ -33,7 +26,7 @@ Otherwise if the compression flag is not set:
 | Type    | Detail |
 |:--------|:-------|
 | `uint8`  | Entry flags |
-| `uint24` | Data length + 4 |
+| `uint24` | Data length |
 | `string` | Filename as null-terminated string |
 | `-` | Optional null-padding if needed to align to the next multiple of 4 bytes |
 | data | Entry data |
@@ -43,7 +36,7 @@ Otherwise if the compression flag is not set:
 | Flag | Detail |
 |:-------|:-------|
 | `(flags >> 7) & 0x1` | Is file compressed |
-| `(flags >> 4) & 0xF` | File type[#file-type] |
+| `flags & 0x7F` | [File type](#file-type) |
 
 ### File Type
 
@@ -53,14 +46,16 @@ Otherwise if the compression flag is not set:
 | `1` | Compiled Lua bytecode |
 | `2` | Static image |
 | `3` | Animated image |
-| `4` | Unknown |
+| `4` | Unknown - possibly video? |
 | `5` | Audio |
 | `6` | Text strings |
 | `7` | Font |
 
 ## Lua Bytecode
 
-Playdate (at the time of writing) seems to use the prerelease/beta version of Lua 5.4. This version uses a slightly nonstandard bytecode header structure, before it was reverted for the 5.4 release.
+At the time of writing the Playdate Lua runtime is based on [prerelease/beta version of Lua 5.4](https://github.com/lua/lua/tree/6c0e44464b9eef4be42e2c8181aabfb3301617ad). This version uses a slightly nonstandard bytecode header structure, before it was reverted for the 5.4 release.
+
+It is possible to execute Playdate Lua bytecode by compiling the 5.4-beta version of Lua with `#define LUA_32BITS = 1` set in `luaconf.h`.
 
 ### Header
 
@@ -78,4 +73,4 @@ Playdate (at the time of writing) seems to use the prerelease/beta version of Lu
 
 ## Other Assets
 
-Any other embedded assets (such as images, strings, etc) seem to have the ident part of their header (e.g. images won't begin with `Playdate IMG`) removed, but are otherwise the same as their corresponding format.
+Any other embedded assets (such as images, strings, etc) seem to have the ident part of their header (e.g. pdi images won't begin with `Playdate IMG`) removed, but are otherwise the same as their corresponding format.

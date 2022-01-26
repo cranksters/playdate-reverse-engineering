@@ -3,7 +3,7 @@ Playdate reverse-engineering notes/tools - covers file formats, server API and U
 ## Documentation
 
 - **File Formats**
-  - **Playdate compiled game formats**
+  - **Playdate game formats**
     - [**.pdz**](https://github.com/jaames/playdate-reverse-engineering/blob/main/formats/pdz.md) - Executable file container
     - [**.pda**](https://github.com/jaames/playdate-reverse-engineering/blob/main/formats/pda.md) - Audio file
     - [**.pdi**](https://github.com/jaames/playdate-reverse-engineering/blob/main/formats/pdi.md) - Image file
