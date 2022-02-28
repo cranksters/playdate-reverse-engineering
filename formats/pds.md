@@ -15,7 +15,7 @@ A file with the `.pds` extension represents a collection localization strings th
 
 ### String header
 
-If the compression flag is set, there's an extra image header after the file header:
+If the compression flag is set, there's an extra string data header after the file header:
 
 | Offset | Type     | Detail |
 |:-------|:---------|:-------|
@@ -40,6 +40,6 @@ After this header, there is a table of int32 offsets for each string entry aside
 
 Offsets are relative to the end of the table, and the first string entry always begins directly after the table.
 
-### String Entry
+### String Entries
 
-Each string entry contains an utf8 key, followed by a null byte, followed by a utf8 value, followed by another null byte.
+Each string entry contains an utf8 string key, followed by a null byte, followed by a utf8 string value, followed by another null byte.

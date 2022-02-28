@@ -1,6 +1,6 @@
 This is the API that is used by the Playdate console for things like fetching game updates, scoreboards, player details, etc. It is available under `https://play.date/api/v2`. All API endpoints require [auth headers](#auth-headers).
 
-This list of endpoints was obtained by decompiling the Playdate Simulator app. Some haven't actually been seen in use, so they are only partially documented.
+This list of endpoints was obtained by decompiling the Playdate Simulator app. Some haven't actually been seen in use, so they are only partially documented and there may be mistakes.
 
 ## Endpoints
 
@@ -65,5 +65,3 @@ All routes require a basic authorization token sent via a HTTP header. If you ha
 ## Player ID
 
 Player IDs seem to use the `DCE 1.1, ISO/IEC 11578:1996` variant of UUID v4, with dashes separating each section, e.g `XXXXXXXX-XXXX-4XXX-8XXX-XXXXXXXXXXXX`.
-
-If you're signed into your account on your Playdate, then your personal Player ID can be found in `cachedAccountInfo.json` under `com.panic.settings` on your Playdate's data partition.

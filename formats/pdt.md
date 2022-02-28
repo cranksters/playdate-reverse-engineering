@@ -15,7 +15,7 @@ A file with the `.pdt` extension represents a 1-bit bitmap image table containin
 
 ## Image Header
 
-If the compression flag is set, there's an extra image header after the file header:
+If the compression flag is set, there's an extra header after the file header:
 
 | Offset | Type     | Detail |
 |:-------|:---------|:--------------------------------|
