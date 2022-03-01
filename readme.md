@@ -1,4 +1,4 @@
-Playdate reverse-engineering notes/tools - covers file formats, server API and USB commands
+Unofficial Playdate reverse-engineering notes/tools - covers file formats, server API and USB commands
 
 > ⚠️ This documentation is unofficial and is not affiliated with Panic. All of the content herein was gleaned from reverse-engineering the Playdate SDK tools and sample game files, and as such there may be mistakes or missing information. 
 

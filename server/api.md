@@ -17,12 +17,9 @@ This list of endpoints was obtained by decompiling the Playdate Simulator app. S
 | `GET`  | `/games/system/` |
 | `GET`  | `/games/:bundleId/latest_build/` |
 | `GET`  | `/games/:bundleId/boards/` |
-| `GET`  | `/games/:bundleId/boards/:unknown/` |
-| `POST` | `/games/:bundleId/boards/:unknown/` |
+| `GET`  | `/games/:bundleId/boards/:boardId/` |
+| `POST` | `/games/:bundleId/boards/:boardId/` |
 | `GET`  | `/device/settings/` |
-| `POST` | [`/device/register/:serialNumber/`]((#get-deviceregisterserialnumber)) |
-| `GET`  | [`/device/register/:serialNumber/complete`](#get-deviceregisterserialnumbercomplete) |
-| `GET`  | [`/firmware/`](#get-firmware) |
 
 ### POST /auth_echo
 
@@ -49,10 +46,6 @@ This endpoint requires an extra header:
 ### GET /device/register/:serialNumber/complete
 
 Returns a JSON with the device's registered status, access token, and serial number. Access token will only be available on the first request to this endpoint after registering the device.
-
-### GET /firmware
-
-Returns information about the latest available firmware version, including a URL to download it. For whatever reason, the latest available firmware for the Simulator is `0.10.2`, so I might not have everything correct here.
 
 ## Auth Headers
 

@@ -33,7 +33,7 @@ Frame data begins immediately after the frame table. Each frame is z-lib compres
 
 ### P-frames
 
-P-frames (frames that are based on previous frames) only store the pixel value changes since the previous frame. These can be resolved by looping through each pixel in the frame and doing a logical XOR against the same pixel from the previous frame.
+P-frames (frames that are based on previous frames) only store the pixels that have changed since the previous frame. These can be resolved by looping through each pixel in the frame and doing a logical XOR against the same pixel from the previous frame.
 
 For example in C this would be something like:
 
