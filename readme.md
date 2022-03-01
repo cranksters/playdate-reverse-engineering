@@ -1,6 +1,6 @@
 Unofficial Playdate reverse-engineering notes/tools - covers file formats, server API and USB commands
 
-> ⚠️ This documentation is unofficial and is not affiliated with Panic. All of the content herein was gleaned from reverse-engineering the Playdate SDK tools and sample game files, and as such there may be mistakes or missing information. 
+> ⚠️ This documentation is unofficial and is not affiliated with Panic. All of the content herein was gleaned from reverse-engineering Playdate tools and game files, and as such there may be mistakes or missing information. 
 
 ## Documentation
 
@@ -13,7 +13,6 @@ Unofficial Playdate reverse-engineering notes/tools - covers file formats, serve
     - [**.pdv**](https://github.com/jaames/playdate-reverse-engineering/blob/main/formats/pdv.md) - Video file
     - [**.pds**](https://github.com/jaames/playdate-reverse-engineering/blob/main/formats/pds.md) - Strings file
     - **.pft** - Font file (TODO)
-    - [Firmware Files](https://github.com/jaames/playdate-reverse-engineering/blob/main/formats/firmware.md)
   - **Other formats**
     - **.fnt** - Font source file (TODO)
     - **.strings** - Strings source file (TODO)
@@ -36,6 +35,6 @@ Unofficial Playdate reverse-engineering notes/tools - covers file formats, serve
 
  ----
 
- 2021 James Daniel
+ 2022 James Daniel
 
  Playdate is © [Panic Inc.](https://panic.com/) - this project isn't affiliated with or endorsed by them in any way.
