@@ -21,7 +21,7 @@ If the compression flag is set, there's an extra string data header after the fi
 |:-------|:---------|:-------|
 | `0`   | `int32`  | Size of decompressed string data |
 | `4`   | `int32`  | Unused/reserved, seen as 0 |
-| `4`   | `int32`  | Unused/reserved, seen as 0 |
+| `8`   | `int32`  | Unused/reserved, seen as 0 |
 | `12`  | `int32`  | Unused/reserved, seen as 0 |
 
 ## String Data
