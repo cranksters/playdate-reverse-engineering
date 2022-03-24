@@ -1,8 +1,13 @@
-> ⚠️ I am not so experienced with USB, so I might be missing details or using incorrect terminology here. If you have any suggestions or corrections, please open an issue thread!
+When connected to USB and unlocked, the Playdate provides a serial interface over USB. Commands are sent as ascii and must end in a newline character (`\n`). If the currently running game logs something to the console (e.g. via `print()` in Lua, or `playdate->system->logToConsole` in C) this will also be sent via serial output. Some commands (such as `button` or `stream enable`) will cause the Playdate to continually send data until another command is sent to cancel it, other commands (for example, `bitmap`) may require extra binary data to be sent after the newline character.
 
-When connected to USB and unlocked, the Playdate provides a kind of command line interface via USB bulk transfers. Commands are sent as ascii text via bulk out and must end in a newline character (`\n`), and the response is received via bulk in. Some commands (such as `button` or `stream enable`) will cause the Playdate to continually send data via bulk in until another command is sent to cancel it, other commands (for example, `bitmap`) may require extra binary data to be sent after the newline character.
+Some of these commands are used by Playdate Simulator for features like "preview bitmap" or "run pdx", or to enable streaming in Playdate mirror. If you want to play around with these, and you use a browser that supports WebSerial, you should check out my [pd-usb](https://github.com/jaames/pd-usb) library.
 
-Some of these commands are used by Playdate Simulator for features like "preview bitmap" or "run pdx". If you want to play around with these, and you use a browser that supports WebUSB, you should check out my [playdate-usb](https://github.com/jaames/playdate-usb) library.
+## USB details
+
+|:----------------|:------|
+| *USB Vendor ID* | `0x1331` |
+| *USB Product ID* | `0x5740` |
+| *Baud rate* | `115200` |
 
 ## USB commands
 
@@ -153,11 +158,7 @@ Launches a .pdx rom from the Playdate's data partition. The game path must begin
 
 ### `eval`
 
-Returns anything that has been printed to the console on the device, or evaluates a compiled Lua function on the device. 
-
-Running eval by itself just returns whatever has been printed to the console (via `print()` in Lua, `playdate->system->logToConsole` in C, etc) since the last time the command was run (oh hey, a way to make your game communicate over USB!).
-
-To evaluate a Lua function, the command must begin with the string `eval %d\n` where `%d` is the length of the data to eval. This should then be followed by the data for a compiled Lua function. You can use the `usbeval.py` script in this repo's `tools` directory to play around with this.
+Evaluates a compiled Lua function on the device. The command must begin with the string `eval %d\n` where `%d` is the length of the data to eval. This should then be followed by the data for a compiled Lua function. You can use the `usbeval.py` script in this repo's `tools` directory to play around with this.
 
 This command will not work if the currently loaded game is from the System directory on the device, presumably for security reasons?
 

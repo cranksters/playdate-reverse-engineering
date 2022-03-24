@@ -1,4 +1,4 @@
-Unofficial Playdate reverse-engineering notes/tools - covers file formats, server API and USB commands
+Unofficial Playdate reverse-engineering notes/tools - covers file formats, server API and USB serial commands
 
 > ⚠️ This documentation is unofficial and is not affiliated with Panic. All of the content herein was gleaned from reverse-engineering Playdate tools and game files, and as such there may be mistakes or missing information. 
 
@@ -19,7 +19,7 @@ Unofficial Playdate reverse-engineering notes/tools - covers file formats, serve
 - **Server**
   - [**Playdate API**](https://github.com/jaames/playdate-reverse-engineering/blob/main/server/api.md) - Main Playdate server API
 - **Misc**
-  - [**USB**](https://github.com/jaames/playdate-reverse-engineering/blob/main/usb/usb.md) - Playdate USB interface
+  - [**USB**](https://github.com/jaames/playdate-reverse-engineering/blob/main/usb/usb.md) - Playdate USB serial interface
 
 ## Tools
 
