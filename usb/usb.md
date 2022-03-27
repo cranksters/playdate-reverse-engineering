@@ -4,6 +4,8 @@ Some of these commands are used by Playdate Simulator for features like "preview
 
 ## USB details
 
+
+|||
 |:----------------|:------|
 | *USB Vendor ID* | `0x1331` |
 | *USB Product ID* | `0x5740` |
