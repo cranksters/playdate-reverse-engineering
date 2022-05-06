@@ -1,4 +1,4 @@
-A file with the `.fnt` extension contains font data created by [playdate caps](https://play.date/caps/).  It is a line oriented UTF-8 plaintext file format, suitable for editing with normal text editors and optionally includes a base64 encoded PNG sprite sheet.
+A file with the `.fnt` extension contains font data created by [playdate caps](https://play.date/caps/). It is a line oriented UTF-8 plaintext file format, suitable for editing with normal text editors and optionally includes a base64 encoded PNG sprite sheet.
 
 Each line is one of:
 
@@ -67,6 +67,7 @@ Kerning pairs may be specified, one line per pair with: two characters, whitespa
 ## Tracking info (optional)
 
 | Key        | Value Detail |
+|:-----------|:-----------------------------------------|
 | `tracking=`| Number of pixels of horizontal whitespace between glyphs within a string. Defaults to 1
 
 
