@@ -6,15 +6,15 @@ Unofficial Playdate reverse-engineering notes/tools - covers file formats, serve
 
 - **File Formats**
   - **Playdate game formats**
-    - [**.pdz**](https://github.com/jaames/playdate-reverse-engineering/blob/main/formats/pdz.md) - Executable file container
-    - [**.pda**](https://github.com/jaames/playdate-reverse-engineering/blob/main/formats/pda.md) - Audio file
-    - [**.pdi**](https://github.com/jaames/playdate-reverse-engineering/blob/main/formats/pdi.md) - Image file
-    - [**.pdt**](https://github.com/jaames/playdate-reverse-engineering/blob/main/formats/pdt.md) - Imagetable file
-    - [**.pdv**](https://github.com/jaames/playdate-reverse-engineering/blob/main/formats/pdv.md) - Video file
-    - [**.pds**](https://github.com/jaames/playdate-reverse-engineering/blob/main/formats/pds.md) - Strings file
+    - [**.pdz**](formats/pdz.md) - Executable file container
+    - [**.pda**](formats/pda.md) - Audio file
+    - [**.pdi**](formats/pdi.md) - Image file
+    - [**.pdt**](formats/pdt.md) - Imagetable file
+    - [**.pdv**](formats/pdv.md) - Video file
+    - [**.pds**](formats/pds.md) - Strings file
     - **.pft** - Font file (TODO)
   - **Other formats**
-    - **.fnt** - Font source file (TODO)
+    - [**.fnt**](formats/fnt.md) - Font source file
     - **.strings** - Strings source file (TODO)
 - **Server**
   - [**Playdate API**](https://github.com/jaames/playdate-reverse-engineering/blob/main/server/api.md) - Main Playdate server API
