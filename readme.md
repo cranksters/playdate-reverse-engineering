@@ -17,15 +17,15 @@ Unofficial Playdate reverse-engineering notes/tools - covers file formats, serve
     - [**.fnt**](formats/fnt.md) - Font source file
     - **.strings** - Strings source file (TODO)
 - **Server**
-  - [**Playdate API**](https://github.com/jaames/playdate-reverse-engineering/blob/main/server/api.md) - Main Playdate server API
+  - [**Playdate API**](server/api.md) - Main Playdate server API
 - **Misc**
-  - [**USB**](https://github.com/jaames/playdate-reverse-engineering/blob/main/usb/usb.md) - Playdate USB serial interface
+  - [**USB**](usb/usb.md) - Playdate USB serial interface
 
 ## Tools
 
-- [**`pdz.py`**](https://github.com/jaames/playdate-reverse-engineering/blob/main/tools/pdz.py) - Unpacks all files from a `.pdz` file container
-- [**`pdex2elf.py`**](https://github.com/jaames/playdate-reverse-engineering/blob/main/tools/pdex2elf.py) - Converts a `pdex.bin` to an ELF file that can be analysed in a decompilation tool such as Ghidra
-- [**`usbeval.py`**](https://github.com/jaames/playdate-reverse-engineering/blob/main/tools/usbeval.py) - Uses the Playdate's USB `eval` command to evaluate a Lua script over USB. Has access to the Lua runtime of the currently loaded game, except for system apps.
+- [**`pdz.py`**](tools/pdz.py) - Unpacks all files from a `.pdz` file container
+- [**`pdex2elf.py`**](tools/pdex2elf.py) - Converts a `pdex.bin` to an ELF file that can be analysed in a decompilation tool such as Ghidra
+- [**`usbeval.py`**](tools/usbeval.py) - Uses the Playdate's USB `eval` command to evaluate a Lua script over USB. Has access to the Lua runtime of the currently loaded game, except for system apps.
 
 ## Special Thanks
 
