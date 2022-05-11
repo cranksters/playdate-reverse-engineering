@@ -10,7 +10,6 @@ A file with the `.pdv` extension represents a 1-bit video that has been converte
 | `20`   | `float32` | Framerate, measured in frames per second |
 | `24`   | `int16` | Frame width |
 | `26`   | `int16` | Frame height |
-| `28`   | `int32` | Unknown, seen as 1. Might be a loop flag? |
 
 In 1bitvideo.app the frame width and height seem to be hardcoded to `400` and `240` respectively, at least at the time of writing.
 
@@ -23,9 +22,13 @@ Following the header is a series of `uint32` values, one for each frame. These v
 | `value >> 2` | Offset |
 | `value & 0x3` | Frame type |
 
-The offset actually represents the offset at the *end* of the compressed frame data, and is relative to the start of the frame data section.
+### Frame Types
 
-The type will be `1` for an [I-frame](https://en.wikipedia.org/wiki/Video_compression_picture_types), and `2` for a [P-frame](https://en.wikipedia.org/wiki/Video_compression_picture_types). This seems to be the frame type for the *next* frame in the list, and the first frame in the video is assumed to always be an I-frame. I-frames can be decoded and displayed as-is, whereas P-frames need to be [merged](#p-frames) with the previous frames to get a complete image.
+| Type | Detail |
+|:-----|:-------|
+| `1`  | [I-frame](https://en.wikipedia.org/wiki/Video_compression_picture_types) |
+| `2`  | [P-frame](https://en.wikipedia.org/wiki/Video_compression_picture_types) |
+| `3`  | Combined I-frame and P-frame |
 
 ## Frame Data
 
@@ -33,13 +36,19 @@ Frame data begins immediately after the frame table. Each frame is z-lib compres
 
 ### P-frames
 
-P-frames (frames that are based on previous frames) only store the pixels that have changed since the previous frame. These can be resolved by looping through each pixel in the frame and doing a logical XOR against the same pixel from the previous frame.
+Frame type 2 is for P-frames (frames that are based on previous frames), and these only store the pixels that have changed since the previous frame. The full image can be resolved by looping through each pixel in the frame and doing a logical XOR against the same pixel from the previous resolved frame.
 
 For example in C this would be something like:
 
 ```c
-for(int i = 0; i < sizeof(frame); i++)
+for (int i = 0; i < sizeof(frame); i++)
 {
   frame[i] ^= prevFrame[i];
 }
 ```
+
+### Combined I-frame and P-frame
+
+Frame type 3 contains both I-frame and P-frame data for the same frame. This is so you can step backwards from an I-frame without having to jump to the previous I-frame then apply P-frames all the way forward. 
+
+The frame data for this frame will start with an `uint16` giving the length of the I-frame data, followed by the I-frame data, and then the P-frame data.
