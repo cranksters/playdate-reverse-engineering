@@ -11,6 +11,12 @@ Some of these commands are used by Playdate Simulator for features like "preview
 | *USB Product ID* | `0x5740` |
 | *Baud rate* | `115200` |
 
+## Connecting to the USB
+
+You can use any terminal emulator to connect to the virtual serial port. For example, on macOS, you can connect using picocom by running:
+
+`picocom -b 115200 -p n -d 8 /dev/cu.usbmodemPD<serial number> --omap crcrlf`
+
 ## USB commands
 
 Running `help` will return a very helpful list of available commands:
@@ -77,6 +83,8 @@ Secret commands:
 
 ```
 formatboot
+unlock
+islocked
 ```
 
 Most of these commands are self-explanatory, so I will just detail some of the interesting/different ones. Please note these were run on an older Playdate Developer Preview unit, so there may be some differences with the final units that get shipped to the public.
@@ -222,6 +230,24 @@ Most partitions don't seem to be readable, however you can for example dump the 
 [**`AT_FS`**](https://docs.espressif.com/projects/esp-at/en/latest/AT_Command_Set/Basic_AT_Commands.html#esp32-only-at-fs-filesystem-operations):
 
 No file system commands seem to be supported.
+
+### `unlock`
+
+Takes a 32 character unlock code and compares it to the device's unlock code.
+
+If it matches, [additional commands](usb_unlocked.md) are enabled.
+
+The unlock code is likely unique to each device, but, as of firmware 1.10, can be dumped from a game using:
+
+```
+SDFile* file = pd->file->open("unlockkey.txt", kFileWrite);
+pd->file->write(file, (const char*)0x1FF0F040, 0x20);
+pd->file->close(file);
+```
+
+### `islocked`
+
+Prints `1` if the serial console is locked, or `0` if the device successfully ran `unlock`.
 
 ## Changes
 
