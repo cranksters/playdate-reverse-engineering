@@ -10,9 +10,9 @@ This list of endpoints was obtained by decompiling the Playdate Simulator app. S
 | `GET`  | [`/player/`](#get-player) |
 | `GET`  | [`/player/:playerId/`](#get-playerplayerid) |
 | `POST` | `/player/avatar/` |
-| `GET`  | `/games/scheduled/` |
+| `GET`  | [`/games/scheduled/`](#get-gamesscheduled) |
+| `GET`  | [`/games/user/`](#get-gamesuser) |
 | `GET`  | `/games/testing/` |
-| `GET`  | `/games/user/` |
 | `GET`  | `/games/purchased/` |
 | `GET`  | `/games/system/` |
 | `GET`  | `/games/:bundleId/latest_build/` |
@@ -33,6 +33,14 @@ Returns the player profile for the user that owns the current access token.
 
 Same as `/player`, but gets the player profile for another user, given their [Player ID](#player-id).
 
+### GET /games/scheduled/
+
+Returns an array of [Schedule](#Schedule) entries for any seasons that you have access to.
+
+### GET /games/user/
+
+Returns an array of [Game](#Game) entries for games that you have [sideloaded](https://help.play.date/games/sideloading/).
+
 ### GET /device/register/:serialNumber/
 
 If the device hasn't already been registered, returns a JSON containing its serial number and pin.
@@ -46,6 +54,41 @@ This endpoint requires an extra header:
 ### GET /device/register/:serialNumber/complete
 
 Returns a JSON with the device's registered status, access token, and serial number. Access token will only be available on the first request to this endpoint after registering the device.
+
+## Schemas
+
+### Schedule
+
+| Key | Type | Detail |
+|:----|:------|:------|
+| `name` | string | Schedule name (Season One is `Season-001`) |
+| `start_date` | string | Schedule start datetime, formatted as `E MMM d HH:mm:ss yyyy zzz` (e.g. `Mon Apr 18 00:00:00 2022 PDT`) |
+| `start_date_timestamp` | number | Schedule start as a UNIX timestamp |
+| `next_release_timestamp` | number | Time of next scheduled release as a UNIX timestamp |
+| `ended` | boolean | |
+| `games` | array | Array of released [Game](#Game) entries |
+
+### Game 
+
+| Key | Type | Detail |
+|:----|:------|:------|
+| `name` | string | Game name, will be displayed to the user |
+| `bundle_id` | string | Reverse-domain formatted bundle ID (e.g `com.jaames.playnote`) |
+| `short_description` | string | Few games currently have this (only seen on Flipper Lifter and Boogie Loops so far), often `null` |
+| `studio` | string | Game's publisher/developer |
+| `has_newer_build` | boolean | |
+| `latest_build` | [Build](#Build) | |
+
+### Build
+
+| Key | Type | Detail |
+|:----|:------|:------|
+| `url` | string | Web URL for the build's .zip file |
+| `is_beta` | boolean | |
+| `version` | string | Human-friendly version string, taken from the game's pdxinfo file |
+| `build_number` | number | Incremental build number from the game's pdxinfo |
+| `filesize` | number | .zip file size, in bytes |
+| `upzipped_filesize` | number | size of the .zip contents after decompression, in bytes |
 
 ## Auth Headers
 
