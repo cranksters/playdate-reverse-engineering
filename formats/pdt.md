@@ -33,7 +33,11 @@ If the compression flag is set, then this section is zlib-compressed.
 | Offset | Type    | Detail |
 |:-------|:--------|:-------|
 | `0`    | `uint16` | Num cells |
-| `2`    | `uint16` | Num cells again? |
+| `2`    | `uint16` | Num cells per row |
+
+For sequential image tables, the values will be the same.
+
+For matrix image tables, the second value will be the number of cells on each row.
 
 ### Table
 
