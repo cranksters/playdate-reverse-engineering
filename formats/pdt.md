@@ -24,6 +24,11 @@ If the compression flag is set, there's an extra header after the file header:
 | `8`    | `int32`  | Image height |
 | `12`   | `int32`  | Number of cells |
 
+The image width and height are for the first image only.
+In sequential image tables, the following images may be of
+different sizes.
+In matrix image tables, all images must be the same size.
+
 ## Image Data
 
 If the compression flag is set, then this section is zlib-compressed.
