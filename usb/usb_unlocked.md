@@ -166,3 +166,11 @@ Memfault Tests:
  mflt        mflt <status|clear|send>
 
 ```
+
+## Changes
+
+### 1.12.x
+
+- Added `factoryreset`
+- Added `tunebuttons`
+- Added `never` option for `autolock`
