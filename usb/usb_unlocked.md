@@ -33,6 +33,7 @@ CPU Control:
  bootdisk    reboot into recovery segment USB disk
  datadisk    reboot into data segment USB disk
  sysdisk     reboot into system segment USB disk
+ factoryreset factory reset
  formatboot  format recovery disk
  formatdata  format data disk
  formatsys   format system disk
@@ -85,6 +86,7 @@ Encryption:
 Runtime control:
  echo        echo (on|off): turn console echo on or off
  buttons     Test buttons & crank
+ tunebuttons tunebuttons <debounce> <holdoff>
  btn         btn <btn>: simulate a button press. +a/-a/a for down/up/both
  changecrank changecrank +-<degrees>
  dockcrank   simulates crank docking
@@ -105,7 +107,7 @@ Runtime control:
  whatsrunning Returns the path of the currently running program
  luatrace    Get a Lua stack trace
  stats       Display runtime stats
- autolock    autolock <always|onBattery|never>
+ autolock    autolock <always|onBattery>
  version     Display build target and SDK version
  station     station <travel agent station name>: Configure device for running at the named station
  setvolume   setvolume <amt>:, 0-255
