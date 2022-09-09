@@ -5,11 +5,11 @@ A file with the `.pdv` extension represents a 1-bit video that has been converte
 | Offset | Type     | Detail |
 |:-------|:---------|:-------|
 | `0`    | `chr[16]` | Ident "Playdate VID", with null padding at the end |
-| `16`   | `int16` | Number of frames |
-| `18`   | `int16` | Reserved, always 0 |
+| `16`   | `uint16` | Number of frames |
+| `18`   | `uint16` | Reserved, always 0 |
 | `20`   | `float32` | Framerate, measured in frames per second |
-| `24`   | `int16` | Frame width |
-| `26`   | `int16` | Frame height |
+| `24`   | `uint16` | Frame width |
+| `26`   | `uint16` | Frame height |
 
 In 1bitvideo.app the frame width and height seem to be hardcoded to `400` and `240` respectively, at least at the time of writing.
 
