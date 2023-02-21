@@ -33,6 +33,7 @@ CPU Control:
  stoptrace   stoptrace
  bootdisk    reboot into recovery segment USB disk
  datadisk    reboot into data segment USB disk
+ factoryreset factory reset
  formatdata  format data disk
  settime     sets the RTC. format is ISO8601 plus weekday (1=mon) e.g.: 2018-03-20T19:58:29Z 2
  gettime     reads the RTC
@@ -42,12 +43,10 @@ CPU Control:
  dcache      dcache <on/off>: turn dcache on or off
  icache      icache <on/off>: turn icache on or off
 
-Firmware Update:
- fwup        fwup [bundle_path]
-
 Runtime control:
  echo        echo (on|off): turn console echo on or off
  buttons     Test buttons & crank
+ tunebuttons tunebuttons <debounce> <holdoff>
  btn         btn <btn>: simulate a button press. +a/-a/a for down/up/both
  changecrank changecrank +-<degrees>
  dockcrank   simulates crank docking
@@ -61,7 +60,7 @@ Runtime control:
  run         run <path to pdx>: Run the named program
  luatrace    Get a Lua stack trace
  stats       Display runtime stats
- autolock    autolock <always|onBattery|never>
+ autolock    autolock <always|onBattery>
  version     Display build target and SDK version
  memstats    memstats
  hibernate   hibernate
@@ -77,6 +76,10 @@ ESP functions:
  espflash    espflash <baud> [0|1] send the files listed with the espfile command to the ESP flash.
  espbaud     espbaud <speed> [cts]
  esp         esp <cmd>: Forward a command to the ESP firmware, read until keypress
+
+Firmware Update:
+ fwup        fwup [bundle_path]
+
 ```
 
 Secret commands:
@@ -251,6 +254,14 @@ Prints `1` if the serial console is locked, or `0` if the device successfully ra
 
 ## Changes
 
+### 1.12.3
+
+(these commands were observed in 1.12.3, but may have been introduced sooner)
+
+- Added `factoryreset` command
+- Added `tunebuttons` command
+- Changed `autolock` to remove never option.
+
 ### 1.7.0
 
 - Added the `hibernate` command.
@@ -269,4 +280,3 @@ Prints `1` if the serial console is locked, or `0` if the device successfully ra
 ### 1.4.0
 
 Initial version tested
-
