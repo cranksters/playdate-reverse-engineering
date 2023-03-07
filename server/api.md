@@ -13,8 +13,12 @@ This list of endpoints was obtained by decompiling the Playdate Simulator app. S
 | `GET`  | [`/games/scheduled/`](#get-gamesscheduled) |
 | `GET`  | [`/games/user/`](#get-gamesuser) |
 | `GET`  | `/games/testing/` |
-| `GET`  | `/games/purchased/` |
-| `GET`  | `/games/system/` |
+| `GET`  | [`/games/system/`](#get-gamessystem) |
+| `GET`  | [`/games/purchased/`](#get-gamespurchased) |
+| `GET`  | [`/games/catalog`](#get-gamescatalog) |
+| `GET`  | [`/games/catalog/:idx`](#get-gamescatalogidx) |
+| `POST`  | [`/games/:bundleId/purchase/`](#post-gamesbundleidpurchase) |
+| `POST`  | [`/games/:bundleId/purchase/confirm`](#post-gamesbundleidpurchaseconfirm) |
 | `GET`  | `/games/:bundleId/latest_build/` |
 | `GET`  | `/games/:bundleId/boards/` |
 | `GET`  | `/games/:bundleId/boards/:boardId/` |
@@ -33,15 +37,39 @@ Returns the player profile for the user that owns the current access token.
 
 Same as `/player`, but gets the player profile for another user, given their [Player ID](#player-id).
 
-### GET /games/scheduled/
+### GET /games/scheduled
 
 Returns an array of [Schedule](#Schedule) entries for any seasons that you have access to.
 
-### GET /games/user/
+### GET /games/user
 
 Returns an array of [Game](#Game) entries for games that you have [sideloaded](https://help.play.date/games/sideloading/).
 
-### GET /device/register/:serialNumber/
+### GET /games/system
+
+Returns an array of [Game](#Game) entries for additional system applications, such as [Catalog](https://play.date/games/catalog/).
+
+### GET /games/purchased
+
+Returns an array of [Game](#Game) entries for games that you have purchased through [Catalog](https://play.date/games/catalog/).
+
+### GET /games/catalog
+
+Returns an array of [Catalog Game](#CatalogGame) entries for games that are available through [Catalog](https://play.date/games/catalog/).
+
+### GET /games/catalog/:idx
+
+Returns [Catalog Game](#CatalogGame) entry for a specific [Catalog](https://play.date/games/catalog/) game.
+
+### POST /games/:bundleId/purchase/
+
+Initiates the purchase flow for a game. Returns instructions for confirming the purchase on another device.
+
+### POST /games/:bundleId/purchase/confirm
+
+Completes the purchase flor for a game.
+
+### GET /device/register/:serialNumber
 
 If the device hasn't already been registered, returns a JSON containing its serial number and pin.
 
@@ -64,9 +92,9 @@ Returns a JSON with the device's registered status, access token, and serial num
 | `name` | string | Schedule name (Season One is `Season-001`) |
 | `start_date` | string | Schedule start datetime, formatted as `E MMM d HH:mm:ss yyyy zzz` (e.g. `Mon Apr 18 00:00:00 2022 PDT`) |
 | `start_date_timestamp` | number | Schedule start as a UNIX timestamp |
-| `next_release_timestamp` | number | Time of next scheduled release as a UNIX timestamp |
+| `next_release_timestamp` | number | Time of next scheduled release as a UNIX timestamp, can be `null` |
 | `ended` | boolean | |
-| `games` | array | Array of released [Game](#Game) entries |
+| `games` | array | Array of available [Game](#Game) entries |
 
 ### Game 
 
@@ -77,6 +105,7 @@ Returns a JSON with the device's registered status, access token, and serial num
 | `short_description` | string | Few games currently have this (only seen on Flipper Lifter and Boogie Loops so far), often `null` |
 | `studio` | string | Game's publisher/developer |
 | `has_newer_build` | boolean | |
+| `decryption_key` | string | Only present for purchased games, otherwise `null`. Unclear what this is actually used for - at the time of writing purchased games do not appear to be encrypted and the key changes on each request. Seems to be base64-encoded. |
 | `latest_build` | [Build](#Build) | |
 
 ### Build
@@ -88,15 +117,53 @@ Returns a JSON with the device's registered status, access token, and serial num
 | `version` | string | Human-friendly version string, taken from the game's pdxinfo file |
 | `build_number` | number | Incremental build number from the game's pdxinfo |
 | `filesize` | number | .zip file size, in bytes |
-| `upzipped_filesize` | number | size of the .zip contents after decompression, in bytes |
+| `upzipped_filesize` | number | Size of the .zip contents after decompression, in bytes |
+
+### Catalog Game
+
+| Key | Type | Detail |
+|:----|:------|:------|
+| `name` | string | Game name, will be displayed to the user |
+| `bundle_id` | string | Reverse-domain formatted bundle ID (e.g `com.jaames.playnote`) |
+| `studio` | string | Game's publisher/developer |
+| `description` | string | Game's description |
+| `detail_url` | string | Path for this game's [`/games/catalog/:idx`](#get-gamescatalogidx) endpoint |
+| `price` | number | Price in USD |
+| `header_image` | string | Path to .pdi image file |
+| `list_image_size` | string | `"small"` |
+| `list_image` | string | Path to .pdi image file |
+| `animation_frame_duration` | unknown | Seen as `null` |
+| `animation_frame_timing` | unknown | Seen as `null` |
+| `accessibility` | string | Game accessibility information |
+| `rating` | string | Game age rating |
+| `screenshots` | [Catalog Screenshot](#CatalogScreenshot)[] | Game screenshots |
+| `build_size` | string | Download size, e.g. `"22.8 MB"` |
+| `published_date` | string | |
+| `updated_date` | string | |
+| `authorized` | boolean | |
+| `purchasable` | boolean | |
+| `short_description` | string | |
+| `web_url` | string | URL for this game on the Catalog web storefront |
+| `purchase_url` | string | Path for this game's [`/games/:bundleId/purchase/`](#post-gamesbundleidpurchase) |
+
+### Catalog Screenshot
+
+| Key | Type | Detail |
+|:----|:------|:------|
+| `url` | string | Path to .pdi image file |
+| `frame_timing` | number[] | |
 
 ## Auth Headers
 
-All routes require a basic authorization token sent via a HTTP header. If you have a developer account on [play.date](//play.date), you can generate an access token by going to `https://play.date/players/account/` and clicking 'register simulator'. It looks as though you're allowed to register up to 5 simulators at one time.
+All routes require a basic authorization token sent via a HTTP header. 
 
 | Header | Value |
 |:-|:-|
 | `Authorization` | `Token ` followed by your authorization token |
+
+### Simulator Tokens
+
+If you have a developer account on [play.date](//play.date), you can generate a simulator-only access token by going to `https://play.date/players/account/` and clicking 'register simulator'. It looks as though you're allowed to register up to 5 simulators at one time. Note that this will be relatively limited, as the simulator cannot.
 
 ## Player ID
 
