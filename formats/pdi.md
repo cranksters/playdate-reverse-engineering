@@ -57,6 +57,6 @@ Cells contain at least one 1-bit bitmap for black/white color (`0` for black and
 
 The data for a cell bitmap will be `stride * clip height` bytes long. Each row of the image will contain `clip width` pixels. Transparent edges are not stored, and must be added back to the cell based on the values given in th cell header.
 
-![Transparent edges are removed from the image to reduce its size](https://github.com/jaames/playdate-reverse-engineerng/blob/master/_images/bitmap-clip.png)
+![Transparent edges are removed from the image to reduce its size](https://github.com/jaames/playdate-reverse-engineering/blob/main/_images/bitmap-clip.png)
 
 The final image width will equal `clip left + clip width + clip right`, likewise the height will equal `clip top + clip height + clip bottom`,
