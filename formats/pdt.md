@@ -27,9 +27,9 @@ If the compression flag is set, there's an extra header after the file header:
 The image width and height are for the first image only. In sequential image tables, the following images may be of
 different sizes. In matrix image tables, all images must be the same size.
 
-## Image Data
-
 If the compression flag is set, then this section is zlib-compressed.
+
+## Image Data
 
 ### Table Header
 

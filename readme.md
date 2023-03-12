@@ -13,7 +13,7 @@ Unofficial Playdate reverse-engineering notes/tools - covers file formats, serve
     - [**.pdt**](formats/pdt.md) - Imagetable file
     - [**.pdv**](formats/pdv.md) - Video file
     - [**.pds**](formats/pds.md) - Strings file
-    - **.pft** - Font file (TODO)
+    - [**.pft**](formats/pft.md) - Font file
   - **Other formats**
     - [**.fnt**](formats/fnt.md) - Font source file
     - **.strings** - Strings source file (TODO)

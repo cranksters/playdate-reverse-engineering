@@ -15,7 +15,7 @@ A file with the `.pdi` extension represents a 1-bit bitmap image that has been c
 
 ## Image Header
 
-If the compression flag is set, there's an extra image header after the file header:
+If the compression flag is set, there's an extra image header after the file header. Everything after this is zlib-compressed. 
 
 | Offset | Type     | Detail |
 |:-------|:---------|:--------------------------------|
@@ -26,7 +26,7 @@ If the compression flag is set, there's an extra image header after the file hea
 
 ## Image Data
 
-If the compression flag is set, then this section is zlib-compressed. `.pdi` image data comprises of a single [Image Cell](#image-cell).
+`.pdi` image data comprises of a single [Image Cell](#image-cell).
 
 ## Image Cell
 

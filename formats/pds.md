@@ -15,7 +15,7 @@ A file with the `.pds` extension represents a collection localization strings th
 
 ### String header
 
-If the compression flag is set, there's an extra string data header after the file header:
+If the compression flag is set, there's an extra string data header after the file header. Everything after this is zlib-compressed. 
 
 | Offset | Type     | Detail |
 |:-------|:---------|:-------|
@@ -25,8 +25,6 @@ If the compression flag is set, there's an extra string data header after the fi
 | `12`  | `uint32`  | Unused/reserved, seen as 0 |
 
 ## String Data
-
-If the compression flag is set, then this section is zlib-compressed.
 
 ### Table Header
 

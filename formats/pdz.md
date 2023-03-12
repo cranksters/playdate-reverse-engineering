@@ -1,6 +1,4 @@
-A file with the `.pdz` extension represents a file container that has been compiled by `pdc`. They mostly contain compiled Lua bytecode, but they can sometimes include other assets such as images or fonts.
-
-This format uses little endian byte order.
+A file with the `.pdz` extension represents a file container that has been compiled by `pdc`. They mostly contain compiled Lua bytecode, but they can sometimes include other assets such as images or fonts. This format uses little endian byte order.
 
 ## Header
 
