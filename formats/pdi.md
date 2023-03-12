@@ -4,14 +4,14 @@ A file with the `.pdi` extension represents a 1-bit bitmap image that has been c
 
 | Offset | Type      | Detail               |
 |:-------|:----------|:---------------------|
-| `0`    | `chr[12]` | Ident `Playdate IMG` |
-| `12`   | `int32`   | File bitflags        |
+| `0`    | `char[12]` | Ident `Playdate IMG` |
+| `12`   | `uint32`   | [File Flags](#file-flags) |
 
 ### File Flags
 
 | Bitmask             | Detail                                      |
 |:--------------------|:--------------------------------------------|
-| `(flag >> 7) & 0x1` | If `1`, the data in this file is compressed |
+| `flags & 0x80000000` | If `> 0`, the data in this file is compressed |
 
 ## Image Header
 
@@ -19,34 +19,44 @@ If the compression flag is set, there's an extra image header after the file hea
 
 | Offset | Type     | Detail |
 |:-------|:---------|:--------------------------------|
-| `0`    | `int32`  | Size of image data section when decompressed |
-| `4`    | `int32`  | Image width |
-| `8`    | `int32`  | Image height |
-| `12`   | `int32`  | Unknown/reserved? Seen as 0 |
+| `0`    | `uint32`  | Size of image data section when decompressed |
+| `4`    | `uint32`  | Image width (in pixels) |
+| `8`    | `uint32`  | Image height (in pixels) |
+| `12`   | `uint32`  | Unknown/reserved? Seen as 0 |
 
 ## Image Data
 
-If the compression flag is set, then this section is zlib-compressed.
+If the compression flag is set, then this section is zlib-compressed. `.pdi` image data comprises of a single [Image Cell](#image-cell).
 
-### Cell header
+## Image Cell
+
+The `pdi`, [`.pdt`](formats/pdi.md) and [`.pft`](formats/pft.md) formats store pixels as "cells", where transparent edges are cropped out to save on space. 
+
+### Cell Header
 
 | Offset | Type     | Detail |
 |:-------|:---------|:-------|
-| `0`    | `uint16` | Cell width |
-| `2`    | `uint16` | Cell height |
+| `0`    | `uint16` | Cell clip width (in pixels) |
+| `2`    | `uint16` | Cell clip height (in pixels) |
 | `4`    | `uint16` | Cell stride (bytes per image row) |
-| `6`    | `uint16` | Cell clip left |
-| `8`    | `uint16` | Cell clip right |
-| `10`   | `uint16` | Cell clip top |
-| `12`   | `uint16` | Cell clip bottom |
-| `14`   | `uint16` | Cell bitflags |
+| `6`    | `uint16` | Cell clip left (in pixels) |
+| `8`    | `uint16` | Cell clip right (in pixels) |
+| `10`   | `uint16` | Cell clip top (in pixels) |
+| `12`   | `uint16` | Cell clip bottom (in pixels) |
+| `14`   | `uint16` | [Cell bitflags](#cell-bitflags) |
 
 ### Cell Bitflags
 
 | Bitmask             | Detail                     |
 |:--------------------|:---------------------------|
-| `(flags & 0x3) > 0` | Cell contains an alpha map |
+| `flags & 0x3` | If `> 0`, cell uses transparency |
 
-### Cell Bitmap
+### Cell Pixels
 
-Cell bitmaps are comprised of two 1-bit maps stored one after the other - first is the black/white map, second is the alpha map, which is only stored if the correct bitflags are set in the cell header. The width of each map is padded to the nearest multiple of 8. Transparent edges get trimmed.
+Cells contain at least one 1-bit bitmap for black/white color (`0` for black and `1` for white). If the transparency flag is set, this will be followed by an additional 1-bit bitmap for the image alpha (`0` for transparent and `1` for opaque).
+
+The data for a cell bitmap will be `stride * clip height` bytes long. Each row of the image will contain `clip width` pixels. Transparent edges are not stored, and must be added back to the cell based on the values given in th cell header.
+
+![Transparent edges are removed from the image to reduce its size](https://github.com/jaames/playdate-reverse-engineerng/blob/master/_images/bitmap-clip.png)
+
+The final image width will equal `clip left + clip width + clip right`, likewise the height will equal `clip top + clip height + clip bottom`,

@@ -1,4 +1,4 @@
-A file with the `.pdz` extension represents an executable container that has been compiled by `pdc`. They mostly contain compiled Lua bytecode, but they can sometimes include other assets from the SDK such as images or fonts.
+A file with the `.pdz` extension represents a file container that has been compiled by `pdc`. They mostly contain compiled Lua bytecode, but they can sometimes include other assets such as images or fonts.
 
 This format uses little endian byte order.
 
@@ -6,73 +6,49 @@ This format uses little endian byte order.
 
 | Offset | Type     | Detail |
 |:-------|:---------|:-------|
-| `0`    | `chr[16]` | "Playdate PDZ", with null padding at the end |
+| `0`    | `char[12]` | Ident `Playdate PDZ` |
+| `12`   | `uint32`   | Reserved, always 0  |
 
 ## File Entries
 
-Following the header is a list of file entries. These can represent either Lua bytecode, or extra data and SDK image assets such as the crank prompt UI.
-
-If the file compression flag is set, each entry consists of:
+Following the header is a list of file entries. Each entry has a header.
 
 | Type    | Detail |
 |:--------|:-------|
-| `uint8`  | Entry flags |
-| `uint24` | Compressed data length + 4 |
-| `string` | Filename as null-terminated string |
+| `uint8`  | [Entry Flags](#entry-flags) |
+| `uint24` | [Entry Data](#entry-data) length |
+| `string` | Filename as null-terminated C string |
 | `-` | Optional null-padding if needed to align to the next multiple of 4 bytes |
-| `uint32` | Decompressed data length |
-| data | Zlib-compressed entry data |
 
-Otherwise if the compression flag is not set:
+If the [Entry Type](#entry-type) flag is `5` (for a `.pda` audio file), some additional values are included:
 
 | Type    | Detail |
 |:--------|:-------|
-| `uint8`  | Entry flags |
-| `uint24` | Data length |
-| `string` | Filename as null-terminated string |
-| `-` | Optional null-padding if needed to align to the next multiple of 4 bytes |
-| data | Entry data |
+| `uint24` | Audio sample rate in Hz |
+| `uint8`  | [Audio Data Format](/format/pda.md#audio-data-format) |
 
 ### Entry Flags
 
 | Flag | Detail |
 |:-------|:-------|
-| `(flags >> 7) & 0x1` | Is file compressed |
-| `flags & 0x7F` | [File type](#file-type) |
+| `flags & 0x80` | If `> 0`, file entry data is compressed |
+| `flags & 0x7F` | [Entry Type](#entry-type) |
 
-### File Type
+### Entry Type
 
 | Flag | Detail |
 |:-------|:-------|
 | `0` | Unknown/unused |
-| `1` | Compiled Lua bytecode |
-| `2` | Static image |
-| `3` | Animated image |
-| `4` | Unknown - possibly video? |
-| `5` | Audio |
-| `6` | Text strings |
-| `7` | Font |
+| `1` | Compiled Lua bytecode ([`.luac`](/formats/luac.md)) |
+| `2` | Static image ([`.pdi`](/formats/pdi.md)) |
+| `3` | Animated image ([`.pdt`](/formats/pdt.md)) |
+| `4` | Video ([`.pdv`](/formats/pdv.md)) |
+| `5` | Audio ([`.pda`](/formats/pda.md)) |
+| `6` | Text strings ([`.pds`](/formats/pds.md)) |
+| `7` | Font ([`.pft`](/formats/pft.md)) |
 
-## Lua Bytecode
+## Entry Data
 
-At the time of writing the Playdate Lua runtime is based on [prerelease/beta version of Lua 5.4](https://github.com/lua/lua/tree/6c0e44464b9eef4be42e2c8181aabfb3301617ad). This version uses a slightly nonstandard bytecode header structure, before it was reverted for the 5.4 release.
+The data for a given file entry is immediately after the entry's file header. If the file's compression flag is set, this will begin with a `uint32` giving the decompressed size of the data, followed by zlib-compressed data.
 
-It is possible to execute Playdate Lua bytecode by compiling the 5.4-beta version of Lua with `#define LUA_32BITS = 1` set in `luaconf.h`.
-
-### Header
-
-| Offset | Type    | Detail |
-|:-------|:--------|:-------|
-| `0`    | `byte[4]` | Constant `LUA_SIGNATURE` (hex `1B 4C 75 61`) |
-| `4`    | `uint16`  | Version (`0x03F8` = 5.4.0 prerelease) |
-| `6`    | `byte`    | Constant `LUAC_FORMAT` (hex `00`) |
-| `7`    | `byte[6]` | Constant `LUAC_DATA` (hex `19 93 0D 0A 1A 0A`) |
-| `13`   | `uint8`   | Instruction size (always `4`) |
-| `14`   | `uint8`   | Integer size (always `4`) |
-| `15`   | `uint8`   | Number size (always `4`) |
-| `16`   | `lua int`  | Constant `LUA_INT` (`0x5678`) |
-| `20`   | `lua float`  | Constant `LUA_NUM` (`370.5`) |
-
-## Other Assets
-
-Any other embedded assets (such as images, strings, etc) seem to have the ident part of their header (e.g. pdi images won't begin with `Playdate IMG`) removed, but are otherwise the same as their corresponding format.
+All of the asset entries (`.pdi`, `.pdt`, `.pdv`, `.pda`, `.pds`, `.pft`), will be missing the first 16 bytes of the header, since for most of these formats this just contains a 12-byte format ident string and some compression flags. This is why `.pda` entries have additional header fields for the sample rate and audio format.

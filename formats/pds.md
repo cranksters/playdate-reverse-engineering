@@ -4,14 +4,14 @@ A file with the `.pds` extension represents a collection localization strings th
 
 | Offset | Type     | Detail |
 |:-------|:---------|:-------|
-| `0`    | `chr[12]` | Ident "Playdate STR" |
-| `12`   | `int32`   | File bitflags        |
+| `0`    | `char[12]` | Ident "Playdate STR" |
+| `12`   | `uint32`   | File bitflags        |
 
 ### File Flags
 
 | Bitmask             | Detail                                      |
 |:--------------------|:--------------------------------------------|
-| `(flag >> 7) & 0x1` | If `1`, the data in this file is compressed |
+| `flag & 0x80000000` | If `> 0`, the data in this file is compressed |
 
 ### String header
 
@@ -19,10 +19,10 @@ If the compression flag is set, there's an extra string data header after the fi
 
 | Offset | Type     | Detail |
 |:-------|:---------|:-------|
-| `0`   | `int32`  | Size of decompressed string data |
-| `4`   | `int32`  | Unused/reserved, seen as 0 |
-| `8`   | `int32`  | Unused/reserved, seen as 0 |
-| `12`  | `int32`  | Unused/reserved, seen as 0 |
+| `0`   | `uint32`  | Size of decompressed string data |
+| `4`   | `uint32`  | Unused/reserved, seen as 0 |
+| `8`   | `uint32`  | Unused/reserved, seen as 0 |
+| `12`  | `uint32`  | Unused/reserved, seen as 0 |
 
 ## String Data
 
@@ -32,7 +32,7 @@ If the compression flag is set, then this section is zlib-compressed.
 
 | Offset | Type    | Detail |
 |:-------|:--------|:-------|
-| `0`    | `int32` | Number of string entries |
+| `0`    | `uint32` | Number of string entries |
 
 ### Table
 

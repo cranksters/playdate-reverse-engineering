@@ -4,12 +4,13 @@ A file with the `.pdv` extension represents a 1-bit video that has been converte
 
 | Offset | Type     | Detail |
 |:-------|:---------|:-------|
-| `0`    | `chr[16]` | Ident "Playdate VID", with null padding at the end |
+| `0`    | `char[12]` | Ident `Playdate IMT` |
+| `12`   | `uint32`   | Reserved, always 0  |
 | `16`   | `uint16` | Number of frames |
 | `18`   | `uint16` | Reserved, always 0 |
 | `20`   | `float32` | Framerate, measured in frames per second |
-| `24`   | `uint16` | Frame width |
-| `26`   | `uint16` | Frame height |
+| `24`   | `uint16` | Frame width (in pixels) |
+| `26`   | `uint16` | Frame height (in pixels) |
 
 In 1bitvideo.app the frame width and height seem to be hardcoded to `400` and `240` respectively, at least at the time of writing.
 
@@ -31,16 +32,15 @@ Following the header is a series of `uint32` values, one for each frame, and one
 | `2`  | [P-frame](https://en.wikipedia.org/wiki/Video_compression_picture_types) |
 | `3`  | Combined I-frame and P-frame |
 
-A `0` type frame is placed at the end to identify where the preceeding frame's
-data ends. There is no actual data following it.
+A `0` type frame is placed at the end to identify where the preceeding frame's data ends. There is no actual data following it.
 
 ## Frame Data
 
-Frame data begins immediately after the frame table. Each frame is z-lib compressed separately. Decompressed, the frame contains a 1-bit pixel map where `0` = black and `1` = white.
+Frame data begins immediately after the frame table. Each frame is z-lib compressed separately. Decompressed, the frame contains a 1-bit pixel map where `0` is black and `1` is white.
 
 ### P-frames
 
-Frame type 2 is for P-frames (frames that are based on previous frames), and these only store the pixels that have changed since the previous frame. The full image can be resolved by looping through each pixel in the frame and doing a logical XOR against the same pixel from the previous resolved frame.
+Frame type `2` is for P-frames (frames that are based on previous frames), and these only store the pixels that have changed since the previous frame. The full image can be resolved by looping through each pixel in the frame and doing a logical XOR against the same pixel from the previous resolved frame.
 
 For example in C this would be something like:
 
