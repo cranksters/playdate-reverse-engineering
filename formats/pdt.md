@@ -5,9 +5,9 @@ A file with the `.pdt` extension represents a 1-bit bitmap image table containin
 | Offset | Type     | Detail |
 |:-------|:---------|:-------|
 | `0`    | `char[12]` | Ident `Playdate IMT` |
-| `12`   | `uint32`   | File bitflags  |
+| `12`   | `uint32`   | [Flags](#flags) |
 
-### File Flags
+### Flags
 
 | Bitmask             | Detail                                      |
 |:--------------------|:--------------------------------------------|

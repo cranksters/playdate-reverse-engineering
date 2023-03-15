@@ -5,9 +5,9 @@ A file with the `.pft` extension represents a 1-bit bitmap font that has been co
 | Offset | Type      | Detail               |
 |:-------|:----------|:---------------------|
 | `0`    | `char[12]` | Ident `Playdate FNT` |
-| `12`   | `uint32`   | [File Flags](#file-flags) |
+| `12`   | `uint32`   | [Flags](#flags) |
 
-### File Flags
+### Flags
 
 | Bitmask             | Detail                                      |
 |:--------------------|:--------------------------------------------|

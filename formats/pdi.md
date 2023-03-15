@@ -5,9 +5,9 @@ A file with the `.pdi` extension represents a 1-bit bitmap image that has been c
 | Offset | Type      | Detail               |
 |:-------|:----------|:---------------------|
 | `0`    | `char[12]` | Ident `Playdate IMG` |
-| `12`   | `uint32`   | [File Flags](#file-flags) |
+| `12`   | `uint32`   | [Flags](#flags) |
 
-### File Flags
+### Flags
 
 | Bitmask             | Detail                                      |
 |:--------------------|:--------------------------------------------|

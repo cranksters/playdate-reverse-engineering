@@ -5,9 +5,9 @@ A file with the `.pds` extension represents a collection localization strings th
 | Offset | Type     | Detail |
 |:-------|:---------|:-------|
 | `0`    | `char[12]` | Ident "Playdate STR" |
-| `12`   | `uint32`   | File bitflags        |
+| `12`   | `uint32`   | [Flags](#flags) |
 
-### File Flags
+### Flags
 
 | Bitmask             | Detail                                      |
 |:--------------------|:--------------------------------------------|

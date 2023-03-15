@@ -5,7 +5,15 @@ A file with the `.pdz` extension represents a file container that has been compi
 | Offset | Type     | Detail |
 |:-------|:---------|:-------|
 | `0`    | `char[12]` | Ident `Playdate PDZ` |
-| `12`   | `uint32`   | Reserved, always 0  |
+| `12`   | `uint32`   | [Flags](#flags)  |
+
+### Flags
+
+| Bitmask             | Detail                                      |
+|:--------------------|:--------------------------------------------|
+| `flag & 0x40000000` | If `> 0`, the data in this file is encrypted |
+
+File encryption is (at the time of writing) only used by Catalog games' `main.pdz` file as a form of DRM. The encryption method isn't known.
 
 ## File Entries
 
