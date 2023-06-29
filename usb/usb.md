@@ -15,7 +15,9 @@ Some of these commands are used by Playdate Simulator for features like "preview
 
 You can use any terminal emulator to connect to the virtual serial port. For example, on macOS, you can connect using picocom by running:
 
-`picocom -b 115200 -p n -d 8 /dev/cu.usbmodemPD<serial number> --omap crcrlf`
+`picocom -b 115200 -p n -d 8 --omap crcrlf /dev/cu.usbmodemPD<serial number>`
+
+When you're done, disconnect and quit picocom with `CTRL-a` `CTRL-x`
 
 ## USB commands
 
@@ -38,6 +40,7 @@ CPU Control:
  settime     sets the RTC. format is ISO8601 plus weekday (1=mon) e.g.: 2018-03-20T19:58:29Z 2
  gettime     reads the RTC
  vbat        get battery voltage
+ rawvbat     get raw battery adc value
  batpct      get battery percentage
  temp        get estimated ambient temperature
  dcache      dcache <on/off>: turn dcache on or off
@@ -253,6 +256,10 @@ pd->file->close(file);
 Prints `1` if the serial console is locked, or `0` if the device successfully ran `unlock`.
 
 ## Changes
+
+### 2.0
+
+- Added `rawvbat` command
 
 ### 1.12.3
 
