@@ -21,6 +21,7 @@ Unofficial Playdate reverse-engineering notes/tools - covers file formats, serve
   - [**Playdate API**](server/api.md) - Main Playdate server API
 - **Misc**
   - [**USB**](usb/usb.md) - Playdate USB serial interface
+  - [**Streaming protocol**](usb/stream.md) - Serial over USB protocol used by Playdate Mirror
 
 ## Tools
 
