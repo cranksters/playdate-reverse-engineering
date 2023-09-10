@@ -176,7 +176,11 @@ Launches a .pdx rom from the Playdate's data partition. The game path must begin
 
 Evaluates a compiled Lua function on the device. The command must begin with the string `eval %d\n` where `%d` is the length of the data to eval. This should then be followed by the data for a compiled Lua function. You can use the `usbeval.py` script in this repo's `tools` directory to play around with this.
 
-This command will not work if the currently loaded game is from the System directory on the device, presumably for security reasons?
+This command will not work if the currently loaded game is from the System directory on the device, presumably for security reasons.
+
+### `stream`
+
+Used for interacting with the Playdate's [video/audio streaming protocol](/usb/stream.md), as used by Playdate Mirror.
 
 ### `esp`
 
@@ -263,7 +267,7 @@ Prints `1` if the serial console is locked, or `0` if the device successfully ra
 
 ### 1.12.3
 
-(these commands were observed in 1.12.3, but may have been introduced sooner)
+(these commands were observed in 1.12.3, but may have been introduced earlier)
 
 - Added `factoryreset` command
 - Added `tunebuttons` command
