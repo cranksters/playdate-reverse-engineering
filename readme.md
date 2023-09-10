@@ -20,8 +20,8 @@ Unofficial Playdate reverse-engineering notes/tools - covers file formats, serve
 - **Server**
   - [**Playdate API**](server/api.md) - Main Playdate server API
 - **Misc**
-  - [**USB**](usb/usb.md) - Playdate USB serial interface
-  - [**Streaming protocol**](usb/stream.md) - Serial over USB protocol used by Playdate Mirror
+  - [**USB**](usb/usb.md) - USB serial interface
+  - [**Streaming**](usb/stream.md) - Video/audio streaming protocol (via USB serial), used by Playdate Mirror
 
 ## Tools
 
@@ -38,7 +38,7 @@ Unofficial Playdate reverse-engineering notes/tools - covers file formats, serve
 ## Special Thanks
 
  - [Zhuowei](https://github.com/zhuowei) for this [script for unpacking Playdate .pdx executables](https://gist.github.com/zhuowei/666c7e6d21d842dbb8b723e96164d9c3), which was the base for `pdz.py`
- - [Scratchminer](https://github.com/scratchminer) for their further reverse-engineering work on the Playdate's [file formats](https://github.com/scratchminer/pd-emu) and [Lua implementation](https://github.com/scratchminer/lua54).
+ - [Scratchminer](https://github.com/scratchminer) for their further reverse-engineering work on the Playdate's [file formats](https://github.com/scratchminer/pd-emu), streaming protocol and [Lua implementation](https://github.com/scratchminer/lua54).
  - [Simon](https://github.com/simontime) for helping with some ADPCM audio data reverse engineering
  - The folks at [Panic](https://panic.com/) for making such a wonderful and fascinating handheld!
 
