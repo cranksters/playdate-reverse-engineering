@@ -241,6 +241,18 @@ Most partitions don't seem to be readable, however you can for example dump the 
 
 No file system commands seem to be supported.
 
+### `btn`
+
+The `btn` command can also send key presses and releases, which call the associated callbacks for the current game.
+
+Most keys on the computer keyboard have a single-byte representation in the `btn` command. In the case of printable characters, this corresponds to their ASCII codepoint, but other keys like arrows and function keys also have a number used by the Simulator.
+
+You can find a full set of the key codes used by the Simulator [here](https://gist.github.com/scratchminer/dcbf3410a7e72151ea68273adce9c932).
+
+For a key press event, send `btn vK`, where `K` is the key code byte.
+
+For a key release event, send `btn ^K`, again where `K` is the key code byte.
+
 ### `unlock`
 
 Takes a 32 character unlock code and compares it to the device's unlock code.
