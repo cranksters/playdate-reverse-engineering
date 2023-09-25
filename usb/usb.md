@@ -174,7 +174,9 @@ Launches a .pdx rom from the Playdate's data partition. The game path must begin
 
 ### `eval`
 
-Evaluates a compiled Lua function on the device. The command must begin with the string `eval %d\n` where `%d` is the length of the data to eval. This should then be followed by the data for a compiled Lua function. You can use the `usbeval.py` script in this repo's `tools` directory to play around with this.
+Evaluates a compiled Lua function on the device. The command must begin with the string `eval %d\n` where `%d` is the length of the data to eval. This should then be followed by the data for a compiled Lua function. You can use the `usbeval.py` script in this repo's `tools` directory to play around with this. 
+
+*Note: `eval` doesn't work in System apps (Launcher, Settings, etc) nor games purchased from the Catalog. You must remove `hash` from the purchased game in order to allow for eval.
 
 This command will not work if the currently loaded game is from the System directory on the device, presumably for security reasons.
 
