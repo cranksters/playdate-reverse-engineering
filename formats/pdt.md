@@ -48,4 +48,4 @@ Offsets are relative to the end of the table, and the first cell always begins d
 
 ### Image Cell
 
-See: (Image Cell)[/formats/pdi.md#image-cell]
+See: [Image Cell](/formats/pdi.md#image-cell)
