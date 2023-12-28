@@ -6,6 +6,7 @@ Unofficial Playdate reverse-engineering notes/tools - covers file formats, serve
 
 - **File Formats**
   - **Playdate game formats**
+    - [**pdex.bin**](formats/pdex.md) - Executable code
     - [**.luac**](formats/luac.md) - Lua bytecode
     - [**.pdz**](formats/pdz.md) - File container
     - [**.pda**](formats/pda.md) - Audio file
