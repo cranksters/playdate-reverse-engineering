@@ -4,7 +4,7 @@ A file with the `.pdv` extension represents a 1-bit video that has been converte
 
 | Offset | Type     | Detail |
 |:-------|:---------|:-------|
-| `0`    | `char[12]` | Ident `Playdate IMT` |
+| `0`    | `char[12]` | Ident `Playdate VID` |
 | `12`   | `uint32`   | Reserved, always 0  |
 | `16`   | `uint16` | Number of frames |
 | `18`   | `uint16` | Reserved, always 0 |
