@@ -20,7 +20,7 @@ FILE_TYPES = {
 FILE_IDENTS = {
   'pdi': b'Playdate IMG',
   'pdt': b'Playdate IMT',
-  'pdv': b'Playdate IMT',
+  'pdv': b'Playdate VID',
   'pda': b'Playdate AUD',
   'pds': b'Playdate STR',
   'pft': b'Playdate FNT'
