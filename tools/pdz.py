@@ -10,7 +10,7 @@ FILE_TYPES = {
   1: 'luac',
   2: 'pdi',
   3: 'pdt',
-  4: 'unknown', # guess would be pdv
+  4: 'pdv',
   5: 'pda',
   6: 'str',
   7: 'pft',
@@ -59,6 +59,11 @@ class PlaydatePdz:
       file_name = self.read_string()
       # align offset to next nearest multiple of 4
       self.buffer.seek((self.buffer.tell() + 3) & ~3)
+      # .pda files have two more values after filename before data
+      if file_type == 'pda':
+        audio_info = unpack('<I', self.buffer.read(4))[0]
+        audio_rate = (audio_info >> 8) & 0xFFFFFF
+        audio_type = audio_info & 0xFF 
       # if compression flag is set, there's another uint32 with the decompressed size
       if is_compressed:
         decompressed_size = unpack('<I', self.buffer.read(4))[0]
@@ -78,7 +83,12 @@ class PlaydatePdz:
         'compressed': is_compressed,
         'decompressed_size': decompressed_size
       }
-  
+      if file_type == 'pda':
+        self.entries[file_name].update( {
+          'audio_rate': audio_rate, 
+          'audio_type': audio_type
+        } )
+      
   def get_entry_data(self, name):
     assert name in self.entries
     entry = self.entries[name]
