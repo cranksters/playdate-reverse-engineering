@@ -44,6 +44,10 @@ class PlaydatePdz:
     magic = self.buffer.read(16)
     magic = magic[:magic.index(b'\0')] # trim null bytes
     assert magic == PDZ_IDENT, 'Invalid PDZ file ident'
+    self.buffer.seek(12)
+    flags = unpack('<I', self.buffer.read(4))[0]
+    is_encrypted = (flags & 0x40000000) > 0
+    assert not is_encrypted, 'PDZ file is encrypted'
 
   def read_string(self):
     res = b''
