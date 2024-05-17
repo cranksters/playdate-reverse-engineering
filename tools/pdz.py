@@ -61,9 +61,10 @@ class PlaydatePdz:
       self.buffer.seek((self.buffer.tell() + 3) & ~3)
       # .pda files have two more values after filename before data
       if file_type == 'pda':
+        entry_len -= 4
         audio_info = unpack('<I', self.buffer.read(4))[0]
-        audio_rate = (audio_info >> 8) & 0xFFFFFF
-        audio_type = audio_info & 0xFF 
+        audio_rate = audio_info & 0xFFFFFF
+        audio_type = (audio_info >> 24) & 0xFF 
       # if compression flag is set, there's another uint32 with the decompressed size
       if is_compressed:
         decompressed_size = unpack('<I', self.buffer.read(4))[0]
