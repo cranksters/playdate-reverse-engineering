@@ -50,4 +50,4 @@ The first `p_filesz` bytes of the uncompressed program data is the program segme
 
 ### Relocation entries
 
-The next `<number of relocation entries> * 4` bytes of the uncompressed program data are the relocation entries, usually from the `.rel.text` and/or `.rel.data` sections of the original ELF file. Each entry is a single `uint32` denoting a byte offset from the beginning of the program segment where a relocation should take place, corresponding to the `r_offset` member of an `ELf32_Rel` relocation entry.
+The next `<number of relocation entries> * 4` bytes of the uncompressed program data are the relocation entries, usually from the `.rel.text` and/or `.rel.data` sections of the original ELF file. Each entry is a single `uint32` denoting a byte offset from the beginning of the program segment where a relocation should take place, corresponding to the `r_offset` member of an `Elf32_Rel` relocation entry.

@@ -27,8 +27,8 @@ Unofficial Playdate reverse-engineering notes/tools - covers file formats, serve
 ## Tools
 
 - [**`pdz.py`**](tools/pdz.py) - Unpacks all files from a `.pdz` file container.
+- [**`pdex2elf.py`**](tools/pdex2elf.py) - Converts a `pdex.bin` to an ELF file that can be analyzed in tools such as readelf, objdump or Ghidra, or compiled back to the same original `pdex.bin` by `pdc`.
 - [**`usbeval.py`**](tools/usbeval.py) - Uses the Playdate's USB `eval` command to evaluate a Lua script over USB. Has access to the Lua runtime of the currently loaded game, except for system apps.
-- [**`pdex2elf.ps1`**](tools/pdex2elf.ps1) - Converts a `pdex.bin` to an ELF file that can be analyzed in tools such as readelf, objdump or Ghidra, or compiled back to the same original `pdex.bin` by `pdc`. Requires PowerShell 7.4 or later.
 
 ## Related Projects and Resources
 
