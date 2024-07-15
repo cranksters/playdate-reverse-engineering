@@ -98,4 +98,4 @@ This supports any unicode codepoint within the whole font
 
 ### Glyph pixels
 
-Stored as an (Image Cell)[/formats/pdi.md#image-cell].
+Stored as an [Image Cell](/formats/pdi.md#image-cell).
