@@ -162,11 +162,11 @@ buttons:XX XX XX crank:X.X docked:X
 
 ### `screen`
 
-Gets the current screen buffer as a 1-bit array of pixels. The data returned from the Playdate will begin with an 11-byte string `\r\nscreen~:\n`, followed by 12000 bytes of bitmap data where each bit of every byte represents one pixel; `0` for black, `1` for white. 
+Gets the current screen buffer as a 1-bit array of pixels. The data returned from the Playdate will begin with an 11-byte string `\r\nscreen~:\n`, followed by 12000 bytes of bitmap data where each bit of every byte represents one pixel; `0` for black, `1` for white.
 
 ### `bitmap`
 
-Sends a 1-bit bitmap to be previewed on the Playdate screen. The command must begin with a 7-byte command string `bitmap\n`, followed by 12000 bytes of bitmap data where each bit of every byte represents one pixel; `0` for black, `1` for white. 
+Sends a 1-bit bitmap to be previewed on the Playdate screen. The command must begin with a 7-byte command string `bitmap\n`, followed by 12000 bytes of bitmap data where each bit of every byte represents one pixel; `0` for black, `1` for white.
 
 ### `run`
 
@@ -174,7 +174,7 @@ Launches a .pdx rom from the Playdate's data partition. The game path must begin
 
 ### `eval`
 
-Evaluates a compiled Lua function on the device. The command must begin with the string `eval %d\n` where `%d` is the length of the data to eval. This should then be followed by the data for a compiled Lua function. You can use the `usbeval.py` script in this repo's `tools` directory to play around with this. 
+Evaluates a compiled Lua function on the device. The command must begin with the string `eval %d\n` where `%d` is the length of the data to eval. This should then be followed by the data for a compiled Lua function. You can use the `usbeval.py` script in this repo's `tools` directory to play around with this.
 
 *Note: `eval` doesn't work in System apps (Launcher, Settings, etc) nor games purchased from the Catalog. You must remove `hash` from the purchased game in order to allow for eval.*
 
@@ -261,9 +261,16 @@ Takes a 32 character unlock code and compares it to the device's unlock code.
 
 If it matches, [additional commands](usb_unlocked.md) are enabled.
 
-The unlock code is likely unique to each device, but, as of firmware 1.10, can be dumped from a game using:
+The unlock code is likely unique to each device and is located in different memory regions depending
+on the playdate hardware revision.
+- As of firmware 1.10, HW revision A contains the key at address `0x1FF0F040`.
+- HW revision B contains the key at address `0x08FFF040`, located in the OTP region of the flash memory.
 
-```
+The following code snippet may be used to dump your key. Use the memory location that corresponds to
+the HW revision you have. Even though the memory region is protected in unprivileged mode, in firmware
+2.4.2, the write succeeds and then the console crashes. You may then find the key in the data drive.
+
+```c
 SDFile* file = pd->file->open("unlockkey.txt", kFileWrite);
 pd->file->write(file, (const char*)0x1FF0F040, 0x20);
 pd->file->close(file);
