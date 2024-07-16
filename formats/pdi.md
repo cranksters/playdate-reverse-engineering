@@ -55,7 +55,7 @@ The `pdi`, [`.pdt`](formats/pdi.md) and [`.pft`](formats/pft.md) formats store p
 
 Cells contain at least one 1-bit bitmap for black/white color (`0` for black and `1` for white). If the transparency flag is set, this will be followed by an additional 1-bit bitmap for the image alpha (`0` for transparent and `1` for opaque).
 
-The data for a cell bitmap will be `stride * clip height` bytes long. Each row of the image will contain `clip width` pixels. Transparent edges are not stored, and must be added back to the cell based on the values given in th cell header.
+The number of bytes used by a cell bitmap will be equal to `stride * clip height`. The number of pixels in each row of the cell bitmap will be equal to `clip width`. Transparent edges are not stored, and must be added back to the cell based on the values given in the cell header.
 
 ![Transparent edges are removed from the image to reduce its size](https://github.com/jaames/playdate-reverse-engineering/blob/main/_images/bitmap-clip.png)
 
