@@ -170,7 +170,7 @@ Sends a 1-bit bitmap to be previewed on the Playdate screen. The command must be
 
 ### `run`
 
-Launches a .pdx rom from the Playdate's data partition. The game path must begin with a forward slash, e.g `run /System/Crayons.pdx`.
+Launches a .pdx rom from the Playdate's data partition. The game path must begin with a forward slash, e.g `run /System/Crayons.pdx`. Additional args following the the game path are sent to the app, accessible via `playdate->system->getLaunchArgs()`.
 
 ### `eval`
 
