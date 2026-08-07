@@ -36,6 +36,7 @@ Unofficial Playdate reverse-engineering notes/tools - covers file formats, serve
 - [**pd-usb**](https://github.com/jaames/pd-usb) - JavaScript library for interacting with the Playdate's serial API from a WebUSB-compatible web browser.
 - [**unluac**](https://github.com/scratchminer/unluac) - Fork of the unluac Lua decompiler, modified to support Playdate-flavoured Lua.
 - [**lua54**](https://github.com/scratchminer/lua54) - Fork of Lua that aims to match the custom tweaks that Panic added for Playdate-flavoured Lua.
+- [**Cranked**](https://github.com/TheLogicMaster/Cranked) - Work-in-progress unofficial Playdate console emulator.
 
 ## Special Thanks
 
